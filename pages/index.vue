@@ -50,9 +50,11 @@
         <span>Balance: 12 SLD</span>
       </div>
     </div>
-    <div class="w-full md:w-3/4 lg:w-5/6 xl:w-3/4 mt-4 flex">
+    <div
+      class="w-full md:w-3/4 lg:w-5/6 xl:w-3/4 mt-4 flex flex-col md:flex-row"
+    >
       <div
-        class="flex-1 px-6 py-2 bg-army bg-opacity-70 rounded-l-lg flex items-center justify-center"
+        class="flex-1 px-6 py-2 bg-army bg-opacity-70 rounded-lg flex items-center justify-center"
       >
         <button
           class="border-4 border-army uppercase font-bold text-normal px-6 py-2 bg-white rounded-lg my-2 hover:bg-army hover:text-white transition"
@@ -60,9 +62,9 @@
           buy on tradejoe
         </button>
       </div>
-      <div class="w-1"></div>
+      <div class="w-0 h-1 md:h-0 md:w-1"></div>
       <div
-        class="flex-1 px-6 py-2 bg-army bg-opacity-70 rounded-r-lg flex items-center justify-center"
+        class="flex-1 px-6 py-2 bg-army bg-opacity-70 rounded-lg flex items-center justify-center"
       >
         <button
           class="border-4 border-army uppercase font-bold text-normal px-6 py-2 bg-white rounded-lg my-2 hover:bg-army hover:text-white transition"
