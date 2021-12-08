@@ -1,54 +1,76 @@
 <template>
-  <div class="background">
+  <div class="background relative md:static">
     <div
-      class="min-h-screen bg-army bg-opacity-70 w-72 hidden lg:flex flex-col fixed"
-    >
-      <div class="flex justify-center">
-        <img src="/images/logo.png" class="h-28 mt-6 mr-3" alt="" />
-      </div>
-      <div class="flex flex-col mt-10">
-        <div
-          class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 transition"
-        >
-          <img src="/icons/helmet.png" class="h-10 mr-4" alt="" />
-          <span class="font-ops text-2xl text-army">Buy Soldiers</span>
-        </div>
-        <div
-          class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 mt-4 transition"
-        >
-          <img src="/icons/rank.png" class="h-10 mr-4" alt="" />
-          <span class="font-ops text-2xl text-white">Constitute</span>
-        </div>
-        <div
-          class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 mt-4 transition"
-        >
-          <img src="/icons/tank.png" class="h-10 mr-4" alt="" />
-          <span class="font-ops text-2xl text-white">Your Army</span>
-        </div>
-        <div
-          class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 mt-4 transition"
-        >
-          <img src="/icons/global.png" class="h-10 mr-4" alt="" />
-          <span class="font-ops text-2xl text-white">World War</span>
-        </div>
-      </div>
+      v-if="mobile && isPanelOpen"
+      class="absolute h-full w-full z-10 bg-black opacity-60"
+      @click="isPanelOpen = false"
+    ></div>
+    <transition name="slide">
       <div
-        class="flex-grow flex justify-between px-10 items-end pb-6 text-center text-4xl text-white"
+        v-if="(mobile && isPanelOpen) || !mobile"
+        class="min-h-screen bg-white lg:bg-army lg:bg-opacity-70 w-72 flex flex-col fixed z-20"
       >
-        <a href="twitter.com" class="hover:text-army transition"
-          ><i class="bx bxl-twitter"></i
-        ></a>
-        <a href="twitter.com" class="hover:text-army transition"
-          ><i class="bx bxl-discord-alt"></i
-        ></a>
-        <a href="twitter.com" class="hover:text-army transition"
-          ><i class="bx bxl-medium"></i
-        ></a>
+        <div class="flex justify-center">
+          <img src="/images/logo.png" class="h-28 mt-6 mr-3" alt="" />
+        </div>
+        <div class="flex flex-col mt-10">
+          <div
+            class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 transition"
+          >
+            <img src="/icons/helmet.png" class="h-10 mr-4" alt="" />
+            <span class="font-ops text-2xl text-army">Buy Soldiers</span>
+          </div>
+          <div
+            class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 mt-4 transition"
+          >
+            <img src="/icons/rank.png" class="h-10 mr-4" alt="" />
+            <span class="font-ops text-2xl text-gray-500 lg:text-white"
+              >Constitute</span
+            >
+          </div>
+          <div
+            class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 mt-4 transition"
+          >
+            <img src="/icons/tank.png" class="h-10 mr-4" alt="" />
+            <span class="font-ops text-2xl text-gray-500 lg:text-white"
+              >Your Army</span
+            >
+          </div>
+          <div
+            class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 mt-4 transition"
+          >
+            <img src="/icons/global.png" class="h-10 mr-4" alt="" />
+            <span class="font-ops text-2xl text-gray-500 lg:text-white"
+              >World War</span
+            >
+          </div>
+        </div>
+        <div
+          class="flex-grow flex justify-between px-10 items-end pb-6 text-center text-4xl text-gray-500 lg:text-white"
+        >
+          <a href="twitter.com" class="hover:text-army transition"
+            ><i class="bx bxl-twitter"></i
+          ></a>
+          <a href="twitter.com" class="hover:text-army transition"
+            ><i class="bx bxl-discord-alt"></i
+          ></a>
+          <a href="twitter.com" class="hover:text-army transition"
+            ><i class="bx bxl-medium"></i
+          ></a>
+        </div>
       </div>
-    </div>
+    </transition>
     <div class="min-h-screen ml-0 lg:ml-72">
       <div class="mx-6 flex flex-col">
-        <div class="flex justify-end items-center mt-10">
+        <div class="flex justify-between items-center mt-10">
+          <div class="flex items-center visible lg:invisible">
+            <button
+              class="h-10 w-10 rounded-md flex items-center justify-center bg-army bg-opacity-70 hover:bg-opacity-100 text-white transition"
+              @click="isPanelOpen = true"
+            >
+              <i class="bx bx-menu"></i>
+            </button>
+          </div>
           <div class="flex items-center">
             <button
               class="py-2 px-8 rounded-md flex items-center bg-army bg-opacity-70 hover:bg-opacity-100 text-white transition"
@@ -64,8 +86,72 @@
   </div>
 </template>
 
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
+  data() {
+    return {
+      mobile: false,
+      isPanelOpen: false,
+    }
+  },
+  created() {
+    if (process.client) {
+      // eslint-disable-next-line nuxt/no-globals-in-created
+      window.addEventListener('resize', this.resize)
+    }
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.resize)
+  },
+  methods: {
+    resize(_: any) {
+      if (window.innerWidth < 1024) {
+        this.mobile = true
+      } else {
+        this.mobile = false
+      }
+    },
+  },
+})
+</script>
+
 <style scoped>
 .background {
   background-image: url('/images/bg.svg');
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.2s ease;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: translateX(-100%);
+  transition: all 150ms ease-in 0s;
+}
+
+.sidebar-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.sidebar-panel {
+  overflow-y: auto;
+  background-color: #130f40;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 999;
+  padding: 3rem 20px 2rem 20px;
+  width: 300px;
 }
 </style>
