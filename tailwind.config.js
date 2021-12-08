@@ -3,6 +3,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      colors: {
+        army: '#27358B',
+      },
       fontFamily: {
         sans: [
           'Montserrat',
