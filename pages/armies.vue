@@ -18,7 +18,7 @@
       <div
         class="bg-gray-300 h-32 rounded-lg flex items-center justify-center col-span-2"
       >
-        Comming Soon...
+        Coming Soon...
       </div>
     </div>
   </div>
