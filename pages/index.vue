@@ -50,6 +50,31 @@
         <span>Balance: 12 SLD</span>
       </div>
     </div>
+    <div class="w-full md:w-3/4 lg:w-5/6 xl:w-3/4 mt-4 flex">
+      <div
+        class="flex-1 px-6 py-2 bg-army bg-opacity-70 rounded-l-lg flex items-center justify-center"
+      >
+        <button
+          class="border-4 border-army uppercase font-bold text-normal px-6 py-2 bg-white rounded-lg my-2 hover:bg-army hover:text-white transition"
+        >
+          buy on tradejoe
+        </button>
+      </div>
+      <div class="w-1"></div>
+      <div
+        class="flex-1 px-6 py-2 bg-army bg-opacity-70 rounded-r-lg flex items-center justify-center"
+      >
+        <button
+          class="border-4 border-army uppercase font-bold text-normal px-6 py-2 bg-white rounded-lg my-2 hover:bg-army hover:text-white transition"
+        >
+          show chart
+        </button>
+      </div>
+    </div>
+
+    <div class="text-xl mt-14 font-bold text-army text-center">
+      When you buy 10 soldiers, you can create 1 Army
+    </div>
   </div>
 </template>
 
