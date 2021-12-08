@@ -49,7 +49,7 @@
         <div class="flex justify-end items-center mt-10">
           <div class="flex items-center">
             <button
-              class="py-2 px-8 rounded-md flex items-center bg-army bg-opacity-80 hover:bg-opacity-100 text-white transition"
+              class="py-2 px-8 rounded-md flex items-center bg-army bg-opacity-70 hover:bg-opacity-100 text-white transition"
             >
               Connect
             </button>
