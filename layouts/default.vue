@@ -17,6 +17,7 @@
           <NuxtLink
             to="/"
             class="px-6 py-2 flex items-center hover:bg-black hover:bg-opacity-20 transition"
+            @click.native="isPanelOpen = false"
           >
             <img src="/icons/helmet.png" class="h-10 mr-4" alt="" />
             <span class="font-ops text-2xl">Buy Soldiers</span>
@@ -24,6 +25,7 @@
           <NuxtLink
             to="/constitute"
             class="px-6 py-2 flex items-center hover:bg-black hover:bg-opacity-20 mt-4 transition"
+            @click.native="isPanelOpen = false"
           >
             <img src="/icons/rank.png" class="h-10 mr-4" alt="" />
             <span class="font-ops text-2xl">Constitute</span>
@@ -31,6 +33,7 @@
           <NuxtLink
             to="/armies"
             class="px-6 py-2 flex items-center hover:bg-black hover:bg-opacity-20 mt-4 transition"
+            @click.native="isPanelOpen = false"
           >
             <img src="/icons/tank.png" class="h-10 mr-4" alt="" />
             <span class="font-ops text-2xl">Your Army</span>
@@ -38,6 +41,7 @@
           <NuxtLink
             to="/war"
             class="px-6 py-2 flex items-center hover:bg-black hover:bg-opacity-20 mt-4 transition"
+            @click.native="isPanelOpen = false"
           >
             <img src="/icons/global.png" class="h-10 mr-4" alt="" />
             <span class="font-ops text-2xl">World War</span>
