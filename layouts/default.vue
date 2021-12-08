@@ -14,36 +14,34 @@
           <img src="/images/logo.png" class="h-28 mt-6 mr-3" alt="" />
         </div>
         <div class="flex flex-col mt-10">
-          <div
-            class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 transition"
+          <NuxtLink
+            to="/"
+            class="px-6 py-2 flex items-center hover:bg-black hover:bg-opacity-20 transition"
           >
             <img src="/icons/helmet.png" class="h-10 mr-4" alt="" />
-            <span class="font-ops text-2xl text-army">Buy Soldiers</span>
-          </div>
-          <div
-            class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 mt-4 transition"
+            <span class="font-ops text-2xl">Buy Soldiers</span>
+          </NuxtLink>
+          <NuxtLink
+            to="/constitute"
+            class="px-6 py-2 flex items-center hover:bg-black hover:bg-opacity-20 mt-4 transition"
           >
             <img src="/icons/rank.png" class="h-10 mr-4" alt="" />
-            <span class="font-ops text-2xl text-gray-500 lg:text-white"
-              >Constitute</span
-            >
-          </div>
-          <div
-            class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 mt-4 transition"
+            <span class="font-ops text-2xl">Constitute</span>
+          </NuxtLink>
+          <NuxtLink
+            to="/armies"
+            class="px-6 py-2 flex items-center hover:bg-black hover:bg-opacity-20 mt-4 transition"
           >
             <img src="/icons/tank.png" class="h-10 mr-4" alt="" />
-            <span class="font-ops text-2xl text-gray-500 lg:text-white"
-              >Your Army</span
-            >
-          </div>
-          <div
-            class="px-6 py-2 flex items-center cursor-pointer hover:bg-black hover:bg-opacity-20 mt-4 transition"
+            <span class="font-ops text-2xl">Your Army</span>
+          </NuxtLink>
+          <NuxtLink
+            to="/war"
+            class="px-6 py-2 flex items-center hover:bg-black hover:bg-opacity-20 mt-4 transition"
           >
             <img src="/icons/global.png" class="h-10 mr-4" alt="" />
-            <span class="font-ops text-2xl text-gray-500 lg:text-white"
-              >World War</span
-            >
-          </div>
+            <span class="font-ops text-2xl">World War</span>
+          </NuxtLink>
         </div>
         <div
           class="flex-grow flex justify-between px-10 items-end pb-6 text-center text-4xl text-gray-500 lg:text-white"
@@ -117,7 +115,7 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
+<style lang="scss">
 .background {
   background-image: url('/images/bg.svg');
 }
@@ -153,5 +151,17 @@ export default Vue.extend({
   z-index: 999;
   padding: 3rem 20px 2rem 20px;
   width: 300px;
+}
+
+a {
+  span {
+    @apply text-gray-500 lg:text-white;
+  }
+}
+
+a.nuxt-link-exact-active {
+  span {
+    @apply text-army;
+  }
 }
 </style>
