@@ -1,6 +1,6 @@
 <template>
   <div class="mt-16 flex flex-col items-center">
-    <div class="font-ops text-4xl">BUY NEW SOLDIERS</div>
+    <div class="font-ops text-4xl uppercase">BUY NEW SOLDIERS</div>
     <div class="mt-10" />
     <div class="w-full md:w-3/4 lg:w-5/6 xl:w-3/4">
       <div
