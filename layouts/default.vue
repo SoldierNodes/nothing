@@ -45,7 +45,19 @@
       </div>
     </div>
     <div class="min-h-screen ml-72">
-      <Nuxt />
+      <div class="mx-6 flex flex-col">
+        <div class="flex justify-end items-center mt-10">
+          <div class="flex items-center">
+            <button
+              class="py-2 px-8 rounded-md flex items-center bg-army bg-opacity-80 hover:bg-opacity-100 text-white transition"
+            >
+              Connect
+            </button>
+          </div>
+        </div>
+        <Nuxt />
+        <div class="h-10"></div>
+      </div>
     </div>
   </div>
 </template>
