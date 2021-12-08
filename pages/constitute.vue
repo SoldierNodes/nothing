@@ -59,7 +59,7 @@
           <input
             type="text"
             placeholder="Army name"
-            class="flex-grow text-sm p-2 rounded-md"
+            class="flex-grow text-sm p-2 rounded-md focus:outline-none focus:ring ring-army text-black"
           />
           <button
             class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
