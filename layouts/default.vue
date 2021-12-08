@@ -1,6 +1,8 @@
 <template>
   <div class="background">
-    <div class="min-h-screen bg-army bg-opacity-70 w-72 flex flex-col fixed">
+    <div
+      class="min-h-screen bg-army bg-opacity-70 w-72 hidden lg:flex flex-col fixed"
+    >
       <div class="flex justify-center">
         <img src="/images/logo.png" class="h-28 mt-6 mr-3" alt="" />
       </div>
@@ -44,7 +46,7 @@
         ></a>
       </div>
     </div>
-    <div class="min-h-screen ml-72">
+    <div class="min-h-screen ml-0 lg:ml-72">
       <div class="mx-6 flex flex-col">
         <div class="flex justify-end items-center mt-10">
           <div class="flex items-center">
