@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ethers, BigNumber } from 'ethers'
 
 // TOKEN CONTRACT
@@ -27,12 +28,6 @@ export default async (
     token,
     wavax
   )
-
-  const price = avaxPrice
-    .mul(tokenPrice)
-    .div(BigNumber.from(10).pow(BigNumber.from(34)))
-
-  console.log(price)
 
   return 0
 }
