@@ -147,7 +147,7 @@ export default Vue.extend({
           method: 'eth_requestAccounts',
         })
         const chainId = await ethereum.request({ method: 'eth_chainId' })
-        const goodChainid = '0x3'
+        const goodChainid = '0xa869'
         if (chainId === goodChainid) {
           this.setAddress(accounts[0])
           ethereum.on('accountsChanged', (accounts: string[]) => {

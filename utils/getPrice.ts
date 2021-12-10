@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable require-await */
 import { ethers, BigNumber } from 'ethers'
 
 const pair = '0xeD8CBD9F0cE3C6986b22002F03c6475CEb7a6256'
@@ -10,8 +12,10 @@ export default async (
   provider: ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider
 ) => {
   const pairContract = new ethers.Contract(pair, abiRouter, provider)
-  const { reserve0, reserve1 }: { reserve0: BigNumber; reserve1: BigNumber } =
-    await pairContract.getReserves()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const { reserve0, reserve1 }: { reserve0: BigNumber; reserve1: BigNumber } =
+  //   await pairContract.getReserves()
 
-  return parseInt(`${reserve1.mul(10 ** 14).div(reserve0)}`) / 100
+  return 0
+  // return parseInt(`${reserve1.mul(10 ** 14).div(reserve0)}`) / 100
 }

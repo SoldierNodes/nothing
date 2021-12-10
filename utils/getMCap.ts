@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ethers, BigNumber } from 'ethers'
 
 import getPrice from './getPrice'
@@ -10,10 +11,12 @@ export default async (
   provider: ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider
 ) => {
   const pairContract = new ethers.Contract(token, abiToken, provider)
-  const totalSupply: BigNumber = await pairContract.totalSupply()
+  // const totalSupply: BigNumber = await pairContract.totalSupply()
   const price = await getPrice(provider)
 
-  return parseFloat(
+  return 0
+  /**
+   * return parseFloat(
     parseFloat(
       `${ethers.BigNumber.from(parseInt(`${price}`))
         .mul(totalSupply)
@@ -21,4 +24,5 @@ export default async (
         .toString()}`
     ).toFixed(2)
   )
+   */
 }

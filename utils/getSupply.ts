@@ -1,3 +1,5 @@
+/* eslint-disable require-await */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ethers, BigNumber } from 'ethers'
 
 const token = '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7'
@@ -8,13 +10,15 @@ export default async (
   provider: ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider
 ) => {
   const pairContract = new ethers.Contract(token, abiToken, provider)
-  const totalSupply: BigNumber = await pairContract.totalSupply()
+  //  const totalSupply: BigNumber = await pairContract.totalSupply()
 
-  return parseFloat(
+  return 0
+  /**
+   * return parseFloat(
     parseFloat(
       totalSupply
         .div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
         .toString()
-    ).toFixed(2)
-  )
+    ).toFixed(2))
+   */
 }

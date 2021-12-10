@@ -80,8 +80,26 @@
 </template>
 
 <script lang="ts">
+import { ethers, BigNumber } from 'ethers'
 import Vue from 'vue'
 import { mapState } from 'vuex'
+
+const getBalance = (value: BigNumber, fixedTo = 6) => {
+  const puissance = 18 - fixedTo < 0 ? 18 : 18 - fixedTo
+  let price = value
+    .div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(puissance)))
+    .toString()
+  if (price.length < fixedTo || price.length === fixedTo) {
+    const diff = fixedTo - price.length
+    for (let i = 0; i < diff; i++) {
+      price = `0${price}`
+    }
+    return `0.${price}`
+  } else {
+    const diff = price.length - fixedTo
+    return `${price.substring(0, diff)}.${price.substring(diff)}`
+  }
+}
 
 export default Vue.extend({
   computed: {
@@ -89,7 +107,7 @@ export default Vue.extend({
   },
   methods: {
     showSoldiers() {
-      return parseInt(this.balance.toString())
+      return parseInt(getBalance(this.balance))
     },
   },
 })

@@ -53,7 +53,9 @@
       >
         <span
           >Balance:
-          {{ isConnected ? showBalance() : 'Please Connect Wallet' }}</span
+          {{
+            isConnected ? showNumbers(showBalance()) : 'Please Connect Wallet'
+          }}</span
         >
       </div>
     </div>
@@ -148,7 +150,7 @@ export default Vue.extend({
   },
   methods: {
     showBalance() {
-      return getBalance(this.balance)
+      return parseFloat(getBalance(this.balance))
     },
     showNumbers(number: number) {
       if (number > 1_000_000_000) {
@@ -158,7 +160,7 @@ export default Vue.extend({
       } else if (number > 1_000) {
         return `${(number / 1_000).toFixed(2)}k`
       } else {
-        return number
+        return number.toFixed(2)
       }
     },
   },
