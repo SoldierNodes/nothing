@@ -50,13 +50,19 @@
         <div
           class="flex-grow flex justify-between px-10 items-end pb-6 text-center text-4xl text-gray-500 lg:text-white"
         >
-          <a href="twitter.com" class="hover:text-army transition"
+          <a
+            href="https://twitter.com/SoldierNodes"
+            class="hover:text-army transition"
             ><i class="bx bxl-twitter"></i
           ></a>
-          <a href="twitter.com" class="hover:text-army transition"
+          <a
+            href="https://discord.gg/aVGZFtJS"
+            class="hover:text-army transition"
             ><i class="bx bxl-discord-alt"></i
           ></a>
-          <a href="twitter.com" class="hover:text-army transition"
+          <a
+            href="https://medium.com/@soldiernodes/soldiernodes-767b977e3292"
+            class="hover:text-army transition"
             ><i class="bx bxl-medium"></i
           ></a>
         </div>
