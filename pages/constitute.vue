@@ -13,17 +13,24 @@
           <div class="flex justify-between my-2">
             <span>Account</span>
             <div class="w-10"></div>
-            <span class="font-bold">0xfc9c...73ffea</span>
+            <span class="font-bold">{{
+              isConnected
+                ? `${account.substr(0, 6)}...${account.substr(
+                    account.length - 6,
+                    account.length
+                  )}`
+                : 'Connect'
+            }}</span>
           </div>
           <div class="flex justify-between my-2">
             <span>Armies</span>
             <div class="w-10"></div>
-            <span class="font-bold">2</span>
+            <span class="font-bold">{{ armies ? armies : 0 }}</span>
           </div>
           <div class="flex justify-between my-2">
             <span>Soldiers</span>
             <div class="w-10"></div>
-            <span class="font-bold">12</span>
+            <span class="font-bold">{{ showSoldiers() }}</span>
           </div>
         </div>
         <div class="w-0 h-1 md:h-0 md:w-1" />
@@ -71,3 +78,19 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+import { mapState } from 'vuex'
+
+export default Vue.extend({
+  computed: {
+    ...mapState(['isConnected', 'account', 'armies', 'balance']),
+  },
+  methods: {
+    showSoldiers() {
+      return parseInt(this.balance.toString())
+    },
+  },
+})
+</script>

@@ -4,6 +4,7 @@ export const state = () => ({
   isConnected: false,
   account: '',
   balance: ethers.BigNumber.from(0),
+  armies: 0,
 })
 
 export const mutations = {
@@ -18,5 +19,8 @@ export const mutations = {
   },
   setBalance(state, balance) {
     state.balance = balance
+  },
+  setArmies(state, armies) {
+    state.armies = armies
   },
 }

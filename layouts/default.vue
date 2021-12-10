@@ -102,6 +102,7 @@ import Vue from 'vue'
 import { mapMutations, mapState } from 'vuex'
 
 import getBalance from '../utils/getBalance'
+import getArmies from '../utils/getArmies'
 
 export default Vue.extend({
   data() {
@@ -123,7 +124,13 @@ export default Vue.extend({
     window.removeEventListener('resize', this.resize)
   },
   methods: {
-    ...mapMutations(['login', 'logout', 'setAddress', 'setBalance']),
+    ...mapMutations([
+      'login',
+      'logout',
+      'setAddress',
+      'setBalance',
+      'setArmies',
+    ]),
     resize(_: any) {
       if (window.innerWidth < 1024) {
         this.mobile = true
@@ -158,6 +165,7 @@ export default Vue.extend({
           const provider = new ethers.providers.Web3Provider(ethereum)
 
           this.setBalance(await getBalance(provider, this.account))
+          this.setArmies(await getArmies(provider, this.account))
         } else {
           try {
             await ethereum.request({
