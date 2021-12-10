@@ -48,7 +48,7 @@
             </div>
             <div class="flex justify-between my-2">
               <span>Claimable</span>
-              <span class="font-bold hover:underline cursor-pointer">4</span>
+              <span class="font-bold">{{ rewards }}</span>
             </div>
           </div>
           <button
@@ -103,7 +103,7 @@ const getBalance = (value: BigNumber, fixedTo = 6) => {
 
 export default Vue.extend({
   computed: {
-    ...mapState(['isConnected', 'account', 'armies', 'balance']),
+    ...mapState(['isConnected', 'account', 'armies', 'balance', 'rewards']),
   },
   methods: {
     showSoldiers() {

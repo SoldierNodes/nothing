@@ -5,6 +5,7 @@ export const state = () => ({
   account: '',
   balance: ethers.BigNumber.from(0),
   armies: 0,
+  rewards: 0,
 })
 
 export const mutations = {
@@ -22,5 +23,8 @@ export const mutations = {
   },
   setArmies(state, armies) {
     state.armies = armies
+  },
+  setRewards(state, rewards) {
+    state.rewards = rewards
   },
 }
