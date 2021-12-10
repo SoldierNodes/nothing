@@ -68,7 +68,7 @@
         class="flex-1 px-6 py-2 bg-army bg-opacity-70 rounded-lg flex items-center justify-center"
       >
         <a
-          href="https://traderjoexyz.com/#/trade?outputCurrency=0x595d6A0c96d994b2642647C9d373B45d0C84F942"
+          href="https://traderjoexyz.com/#/trade?outputCurrency=0xad7476c49d3f82a144f4836aacb9b069c188b759"
           target="_blank"
           class="border-4 border-army uppercase font-bold text-normal px-6 py-2 bg-white rounded-lg my-2 hover:bg-army hover:text-white transition"
         >
@@ -80,7 +80,7 @@
         class="flex-1 px-6 py-2 bg-army bg-opacity-70 rounded-lg flex items-center justify-center"
       >
         <a
-          href="https://dexscreener.com/avalanche/0x595d6A0c96d994b2642647C9d373B45d0C84F942"
+          href="https://dexscreener.com/avalanche/0xad7476c49d3f82a144f4836aacb9b069c188b759"
           target="_blank"
           class="border-4 border-army uppercase font-bold text-normal px-6 py-2 bg-white rounded-lg my-2 hover:bg-army hover:text-white transition"
         >
