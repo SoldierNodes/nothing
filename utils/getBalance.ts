@@ -1,6 +1,6 @@
 import { ethers, BigNumber } from 'ethers'
 
-const token = '0xdcc19Cef4f7e90F744899FD17Eef327C6C9676CE'
+const token = '0x595d6A0c96d994b2642647C9d373B45d0C84F942'
 
 const abiToken = [
   'function balanceOf(address account) external view returns (uint256)',

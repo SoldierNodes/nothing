@@ -155,7 +155,7 @@ export default Vue.extend({
           method: 'eth_requestAccounts',
         })
         const chainId = await ethereum.request({ method: 'eth_chainId' })
-        const goodChainid = '0xa869'
+        const goodChainid = '0xa86a'
         if (chainId === goodChainid) {
           this.setAddress(accounts[0])
           ethereum.on('accountsChanged', (accounts: string[]) => {
@@ -188,12 +188,15 @@ export default Vue.extend({
                   method: 'wallet_addEthereumChain',
                   params: [
                     {
-                      // PARAMS
                       chainId: goodChainid,
-                      chainName: '',
-                      nativeCurrency: { name: '', symbol: '', decimals: 18 },
-                      rpcUrls: [''],
-                      blockExplorerUrls: [''],
+                      chainName: 'Avalanche Network',
+                      nativeCurrency: {
+                        name: 'Avalanche',
+                        symbol: 'AVAX',
+                        decimals: 18,
+                      },
+                      rpcUrls: ['https://api.avax.network/ext/bc/C/rpc'],
+                      blockExplorerUrls: ['https://snowtrace.io/'],
                     },
                   ],
                 })
