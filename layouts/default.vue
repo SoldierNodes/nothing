@@ -76,8 +76,16 @@
           <div class="flex items-center">
             <button
               class="py-2 px-8 rounded-md flex items-center bg-army bg-opacity-70 hover:bg-opacity-100 text-white transition"
+              @click="isConnected ? logout() : connect()"
             >
-              Connect
+              {{
+                isConnected
+                  ? `${account.substr(0, 6)}...${account.substr(
+                      account.length - 6,
+                      account.length
+                    )}`
+                  : 'Connect'
+              }}
             </button>
           </div>
         </div>
@@ -90,6 +98,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapMutations, mapState } from 'vuex'
+// import ethers from 'ethers'
 
 export default Vue.extend({
   data() {
@@ -97,6 +107,9 @@ export default Vue.extend({
       mobile: false,
       isPanelOpen: false,
     }
+  },
+  computed: {
+    ...mapState(['isConnected', 'account']),
   },
   created() {
     if (process.client) {
@@ -108,11 +121,83 @@ export default Vue.extend({
     window.removeEventListener('resize', this.resize)
   },
   methods: {
+    ...mapMutations(['login', 'logout', 'setAddress']),
     resize(_: any) {
       if (window.innerWidth < 1024) {
         this.mobile = true
       } else {
         this.mobile = false
+      }
+    },
+    async connect() {
+      // @ts-ignore
+      const ethereum = window.ethereum
+
+      try {
+        const accounts = await ethereum.request({
+          method: 'eth_requestAccounts',
+        })
+        const chainId = await ethereum.request({ method: 'eth_chainId' })
+        const goodChainid = '0x3'
+        if (chainId === goodChainid) {
+          this.setAddress(accounts[0])
+          ethereum.on('accountsChanged', (accounts: string[]) => {
+            if (accounts[0] === undefined) {
+              window.location.reload()
+            } else {
+              this.setAddress(accounts[0])
+            }
+          })
+          ethereum.on('chainChanged', () => {
+            window.location.reload()
+          })
+          this.login()
+        } else {
+          try {
+            await ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: goodChainid }],
+            })
+          } catch (switchError: any) {
+            if (switchError.code === 4902) {
+              try {
+                await ethereum.request({
+                  method: 'wallet_addEthereumChain',
+                  params: [
+                    {
+                      // PARAMS
+                      chainId: goodChainid,
+                      chainName: '',
+                      nativeCurrency: { name: '', symbol: '', decimals: 18 },
+                      rpcUrls: [''],
+                      blockExplorerUrls: [''],
+                    },
+                  ],
+                })
+              } catch (addError) {
+                // this.setModal(false, 'Chain Id', 'Wrong Network')
+              }
+            } else {
+              // this.setModal(false, 'Chain Id', 'Wrong Network')
+            }
+          }
+        }
+      } catch (error: any) {
+        if (error.code === 4001) {
+          // this.setModal(
+          //  false,
+          //  'MetaMask',
+          //  'To gain access to the presale, you must first connect your wallet',
+          //  5000
+          // )
+        } else {
+          // this.setModal(
+          //   false,
+          //   'MetaMask',
+          //  'Please download and install MetaMask!',
+          //   5000
+          // )
+        }
       }
     },
   },
