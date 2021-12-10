@@ -99,7 +99,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapMutations, mapState } from 'vuex'
-// import ethers from 'ethers'
 
 export default Vue.extend({
   data() {

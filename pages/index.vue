@@ -13,35 +13,39 @@
           <div class="flex justify-between my-2">
             <span>Price</span>
             <div class="w-10"></div>
-            <span class="font-bold">XX $</span>
+            <span class="font-bold">{{ showNumbers(price) }} $</span>
           </div>
           <div class="flex justify-between my-2">
             <span>Market Cap</span>
             <div class="w-10"></div>
-            <span class="font-bold">XX M$</span>
+            <span class="font-bold">{{ showNumbers(mcap) }} $</span>
           </div>
           <div class="flex justify-between my-2">
             <span>Total Supply</span>
             <div class="w-10"></div>
-            <span class="font-bold">X</span>
+            <span class="font-bold">{{ showNumbers(tsupply) }}</span>
           </div>
         </div>
         <div class="w-0 h-1 md:h-0 md:w-1" />
         <div class="flex-grow p-6 bg-army bg-opacity-70 text-white text-lg">
           <div class="flex justify-between my-2">
-            <span>Last 24H</span>
-            <span class="font-bold">+XXX %</span>
+            <span>Name</span>
+            <span class="font-bold">Soldiers</span>
           </div>
           <div class="flex justify-between my-2">
             <span>Symbole</span>
-            <span class="font-bold">XXX</span>
+            <span class="font-bold">$SOLDIER</span>
           </div>
-          <div class="flex justify-between my-2">
+          <a
+            href="https://snowtrace.io/address/0x9Ad6C38BE94206cA50bb0d90783181662f0Cfa10"
+            target="_blank"
+            class="flex justify-between my-2"
+          >
             <span>Contract</span>
             <span class="font-bold hover:underline cursor-pointer"
               >0xXXXX...XXXXXX</span
             >
-          </div>
+          </a>
         </div>
       </div>
       <div
@@ -82,13 +86,54 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapState } from 'vuex'
+import { ethers } from 'ethers'
+
+import getPrice from '../utils/getPrice'
+import getMCap from '../utils/getMCap'
+import getSupply from '../utils/getSupply'
 
 export default Vue.extend({
   data() {
     return {
       mobile: false,
       isPanelOpen: false,
+      price: 0,
+      mcap: 0,
+      tsupply: 0,
+      variation: 0,
     }
+  },
+  computed: {
+    ...mapState(['isConnected', 'account']),
+  },
+  async mounted() {
+    let provider
+    if (this.isConnected) {
+      // @ts-ignore
+      provider = new ethers.providers.Web3Provider(window.ethereum)
+    } else {
+      provider = new ethers.providers.JsonRpcProvider(
+        `https://api.avax.network/ext/bc/C/rpc`
+      )
+    }
+
+    this.price = await getPrice(provider)
+    this.mcap = await getMCap(provider)
+    this.tsupply = await getSupply(provider)
+  },
+  methods: {
+    showNumbers(number: number) {
+      if (number > 1_000_000_000) {
+        return `${(number / 1_000_000_000).toFixed(2)}B`
+      } else if (number > 1_000_000) {
+        return `${(number / 1_000_000).toFixed(2)}M`
+      } else if (number > 1_000) {
+        return `${(number / 1_000).toFixed(2)}k`
+      } else {
+        return number
+      }
+    },
   },
 })
 </script>
