@@ -125,6 +125,10 @@ export default Vue.extend({
     if (process.client) {
       // eslint-disable-next-line nuxt/no-globals-in-created
       window.addEventListener('resize', this.resize)
+      // eslint-disable-next-line nuxt/no-globals-in-created
+      if (window.innerWidth < 1024) {
+        this.mobile = true
+      }
     }
   },
   destroyed() {
