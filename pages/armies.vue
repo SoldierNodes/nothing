@@ -8,7 +8,7 @@
       <div
         class="bg-army bg-opacity-70 h-32 rounded-lg flex items-center justify-center text-white"
       >
-        Your Army: {{ armies }}
+        Amount of {{ armies > 1 ? 'armies' : 'army' }}: {{ armies }}
       </div>
       <div
         class="bg-army bg-opacity-70 h-32 rounded-lg flex items-center justify-center text-white"

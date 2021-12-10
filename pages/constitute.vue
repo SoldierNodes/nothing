@@ -23,7 +23,7 @@
             }}</span>
           </div>
           <div class="flex justify-between my-2">
-            <span>Armies</span>
+            <span>{{ armies > 1 ? 'Armies' : 'Army' }}</span>
             <div class="w-10"></div>
             <span class="font-bold">{{ armies }}</span>
           </div>

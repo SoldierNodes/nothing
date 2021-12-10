@@ -13,12 +13,12 @@
           <div class="flex justify-between my-2">
             <span>Price</span>
             <div class="w-10"></div>
-            <span class="font-bold">{{ showNumbers(price) }} $</span>
+            <span class="font-bold">Soon</span>
           </div>
           <div class="flex justify-between my-2">
             <span>Market Cap</span>
             <div class="w-10"></div>
-            <span class="font-bold">{{ showNumbers(mcap) }} $</span>
+            <span class="font-bold">Soon</span>
           </div>
           <div class="flex justify-between my-2">
             <span>Total Supply</span>
@@ -30,10 +30,10 @@
         <div class="flex-grow p-6 bg-army bg-opacity-70 text-white text-lg">
           <div class="flex justify-between my-2">
             <span>Name</span>
-            <span class="font-bold">Soldiers</span>
+            <span class="font-bold">Soldier</span>
           </div>
           <div class="flex justify-between my-2">
-            <span>Symbole</span>
+            <span>Symbol</span>
             <span class="font-bold">$SOLDIER</span>
           </div>
           <a
@@ -54,7 +54,9 @@
         <span
           >Balance:
           {{
-            isConnected ? showNumbers(showBalance()) : 'Please Connect Wallet'
+            isConnected
+              ? `${showNumbers(showBalance())} $SOLDIER`
+              : 'Please Connect Wallet'
           }}</span
         >
       </div>
@@ -70,7 +72,7 @@
           target="_blank"
           class="border-4 border-army uppercase font-bold text-normal px-6 py-2 bg-white rounded-lg my-2 hover:bg-army hover:text-white transition"
         >
-          buy on tradejoe
+          buy on traderjoe
         </a>
       </div>
       <div class="w-0 h-1 md:h-0 md:w-1"></div>
@@ -88,7 +90,7 @@
     </div>
 
     <div class="text-xl mt-14 font-bold text-army text-center">
-      When you buy 10 soldiers, you can create 1 Army
+      When you buy 10 soldiers, you can form 1 army.
     </div>
   </div>
 </template>
