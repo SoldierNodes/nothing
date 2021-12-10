@@ -25,7 +25,7 @@
           <div class="flex justify-between my-2">
             <span>Armies</span>
             <div class="w-10"></div>
-            <span class="font-bold">{{ armies ? armies : 0 }}</span>
+            <span class="font-bold">{{ armies }}</span>
           </div>
           <div class="flex justify-between my-2">
             <span>Soldiers</span>
@@ -53,6 +53,7 @@
           </div>
           <button
             class="ml-6 px-3 py-1 text-sm font-bold bg-white border-2 border-army text-black rounded hover:bg-army hover:text-white transition"
+            @click="claim()"
           >
             Claim
           </button>
@@ -64,12 +65,14 @@
         <span class="font-ops">Build your army:</span>
         <div class="flex my-2">
           <input
+            v-model="name"
             type="text"
             placeholder="Army name"
             class="flex-grow text-sm p-2 rounded-md focus:outline-none focus:ring ring-army text-black"
           />
           <button
             class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
+            @click="create()"
           >
             Create
           </button>
@@ -83,6 +86,9 @@
 import { ethers, BigNumber } from 'ethers'
 import Vue from 'vue'
 import { mapState } from 'vuex'
+
+import claimMe from '../utils/claim'
+import buildArmy from '../utils/buildArmy'
 
 const getBalance = (value: BigNumber, fixedTo = 6) => {
   const puissance = 18 - fixedTo < 0 ? 18 : 18 - fixedTo
@@ -102,12 +108,28 @@ const getBalance = (value: BigNumber, fixedTo = 6) => {
 }
 
 export default Vue.extend({
+  data() {
+    return {
+      name: '',
+    }
+  },
   computed: {
     ...mapState(['isConnected', 'account', 'armies', 'balance', 'rewards']),
   },
   methods: {
     showSoldiers() {
       return parseInt(getBalance(this.balance))
+    },
+    claim() {
+      // @ts-ignore
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+      claimMe(provider)
+    },
+    create() {
+      // @ts-ignore
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      buildArmy(provider, this.name)
     },
   },
 })
