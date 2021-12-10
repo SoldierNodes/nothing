@@ -97,8 +97,11 @@
 </template>
 
 <script lang="ts">
+import { ethers } from 'ethers'
 import Vue from 'vue'
 import { mapMutations, mapState } from 'vuex'
+
+import getBalance from '../utils/getBalance'
 
 export default Vue.extend({
   data() {
@@ -120,7 +123,7 @@ export default Vue.extend({
     window.removeEventListener('resize', this.resize)
   },
   methods: {
-    ...mapMutations(['login', 'logout', 'setAddress']),
+    ...mapMutations(['login', 'logout', 'setAddress', 'setBalance']),
     resize(_: any) {
       if (window.innerWidth < 1024) {
         this.mobile = true
@@ -151,6 +154,10 @@ export default Vue.extend({
             window.location.reload()
           })
           this.login()
+
+          const provider = new ethers.providers.Web3Provider(ethereum)
+
+          this.setBalance(await getBalance(provider, this.account))
         } else {
           try {
             await ethereum.request({

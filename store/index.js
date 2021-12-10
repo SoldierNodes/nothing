@@ -1,6 +1,9 @@
+import { ethers } from 'ethers'
+
 export const state = () => ({
   isConnected: false,
   account: '',
+  balance: ethers.BigNumber.from(0),
 })
 
 export const mutations = {
@@ -12,5 +15,8 @@ export const mutations = {
   },
   setAddress(state, address) {
     state.account = address
+  },
+  setBalance(state, balance) {
+    state.balance = balance
   },
 }

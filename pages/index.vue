@@ -51,7 +51,10 @@
       <div
         class="mt-1 p-2 bg-army bg-opacity-70 text-white font-ops text-xl rounded-b-lg text-center"
       >
-        <span>Balance: XX XXX</span>
+        <span
+          >Balance:
+          {{ isConnected ? showBalance() : 'Please Connect Wallet' }}</span
+        >
       </div>
     </div>
     <div
@@ -60,21 +63,25 @@
       <div
         class="flex-1 px-6 py-2 bg-army bg-opacity-70 rounded-lg flex items-center justify-center"
       >
-        <button
+        <a
+          href="https://traderjoexyz.com/#/trade?outputCurrency=0x8f47416cae600bccf9530e9f3aeaa06bdd1caa79"
+          target="_blank"
           class="border-4 border-army uppercase font-bold text-normal px-6 py-2 bg-white rounded-lg my-2 hover:bg-army hover:text-white transition"
         >
           buy on tradejoe
-        </button>
+        </a>
       </div>
       <div class="w-0 h-1 md:h-0 md:w-1"></div>
       <div
         class="flex-1 px-6 py-2 bg-army bg-opacity-70 rounded-lg flex items-center justify-center"
       >
-        <button
+        <a
+          href="https://dexscreener.com/avalanche/0x8f47416cae600bccf9530e9f3aeaa06bdd1caa79"
+          target="_blank"
           class="border-4 border-army uppercase font-bold text-normal px-6 py-2 bg-white rounded-lg my-2 hover:bg-army hover:text-white transition"
         >
           show chart
-        </button>
+        </a>
       </div>
     </div>
 
@@ -87,11 +94,28 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import { ethers } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
 
 import getPrice from '../utils/getPrice'
 import getMCap from '../utils/getMCap'
 import getSupply from '../utils/getSupply'
+
+const getBalance = (value: BigNumber, fixedTo = 6) => {
+  const puissance = 18 - fixedTo < 0 ? 18 : 18 - fixedTo
+  let price = value
+    .div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(puissance)))
+    .toString()
+  if (price.length < fixedTo || price.length === fixedTo) {
+    const diff = fixedTo - price.length
+    for (let i = 0; i < diff; i++) {
+      price = `0${price}`
+    }
+    return `0.${price}`
+  } else {
+    const diff = price.length - fixedTo
+    return `${price.substring(0, diff)}.${price.substring(diff)}`
+  }
+}
 
 export default Vue.extend({
   data() {
@@ -105,7 +129,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState(['isConnected', 'account']),
+    ...mapState(['isConnected', 'account', 'balance']),
   },
   async mounted() {
     let provider
@@ -123,6 +147,9 @@ export default Vue.extend({
     this.tsupply = await getSupply(provider)
   },
   methods: {
+    showBalance() {
+      return getBalance(this.balance)
+    },
     showNumbers(number: number) {
       if (number > 1_000_000_000) {
         return `${(number / 1_000_000_000).toFixed(2)}B`
