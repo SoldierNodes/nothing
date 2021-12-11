@@ -87,7 +87,7 @@
           </button>
           <button
             class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
-            @click="add()"
+            @click="create()"
           >
             Create {{ names.length }} Armies
           </button>
