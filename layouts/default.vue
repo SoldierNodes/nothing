@@ -109,6 +109,7 @@ import { mapMutations, mapState } from 'vuex'
 
 import getBalance from '../utils/getBalance'
 import getArmies from '../utils/getArmies'
+import getArmy from '../utils/getArmy'
 import getRewards from '../utils/getReward'
 
 export default Vue.extend({
@@ -142,6 +143,7 @@ export default Vue.extend({
       'setBalance',
       'setArmies',
       'setRewards',
+      'setArmiesArray',
     ]),
     resize(_: any) {
       if (window.innerWidth < 1024) {
@@ -179,6 +181,7 @@ export default Vue.extend({
           this.setBalance(await getBalance(provider, this.account))
           this.setArmies(await getArmies(provider, this.account))
           this.setRewards(await getRewards(provider, this.account))
+          this.setArmiesArray(await getArmy(provider))
         } else {
           try {
             await ethereum.request({

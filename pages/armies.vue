@@ -16,9 +16,61 @@
         Your soldiers: {{ showSoldiers() }}
       </div>
       <div
-        class="bg-gray-300 h-32 rounded-lg flex items-center justify-center col-span-2"
+        class="bg-gray-300 rounded-lg col-span-2 p-6 font-sans text-base normal-case"
       >
-        Coming Soon...
+        <div class="grid grid-cols-5">
+          <div class="flex items-center">
+            <span class="font-bold">Name</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-bold">Creation Date</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-bold">Reward Avaible</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-bold">Last Claim</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-bold">Is NFT</span>
+          </div>
+        </div>
+        <div class="h-6"></div>
+        <div
+          v-for="(army, index) in amriesArray"
+          :key="index"
+          class="grid grid-cols-5 my-2"
+        >
+          <div class="flex items-center">
+            <span class="font-bold">{{ army.name }}</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-bold">{{ showDate(army.created) }}</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-bold">{{ army.rewards }}</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-bold">{{ showDate(army.claims) }}</span>
+          </div>
+          <div class="flex items-center">
+            <span v-if="army.nft" class="font-bold">Yes</span>
+            <button
+              v-else
+              :class="classArmy(army.name)"
+              @click="select(army.name)"
+            >
+              Migrate
+            </button>
+          </div>
+        </div>
+        <div class="flex justify-end mt-10">
+          <button
+            class="px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
+          >
+            Migrate {{ selected.length }} Armies
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -46,11 +98,38 @@ const getBalance = (value: BigNumber, fixedTo = 6) => {
   }
 }
 
-export default Vue.extend({
-  computed: { ...mapState(['armies', 'balance']) },
+export default Vue.extend<any, any, any, any>({
+  data() {
+    return {
+      selected: [],
+    }
+  },
+  computed: {
+    ...mapState(['armies', 'balance', 'amriesArray']),
+    classArmy() {
+      return (name: string) => {
+        if (this.selected.includes(name)) {
+          return `px-4 py-2 text-sm font-bold bg-army border-2 border-army text-white rounded-md transition`
+        } else {
+          return `px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition`
+        }
+      }
+    },
+  },
   methods: {
     showSoldiers() {
       return parseInt(getBalance(this.balance))
+    },
+    showDate(unix: number) {
+      const date = new Date(unix * 1000)
+      return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`
+    },
+    select(name: string) {
+      if (!this.selected.includes(name)) {
+        this.selected.push(name)
+      } else {
+        this.selected = this.selected.filter((value: string) => value !== name)
+      }
     },
   },
 })
