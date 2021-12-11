@@ -63,18 +63,33 @@
         class="mt-1 px-6 py-3 bg-army bg-opacity-70 text-white text-xl rounded-b-lg"
       >
         <span class="font-ops">Build your army:</span>
-        <div class="flex my-2">
+        <div v-for="(name, index) in names" :key="index" class="flex my-2">
           <input
-            v-model="name"
+            v-model="name.value"
             type="text"
             placeholder="Army name"
             class="flex-grow text-sm p-2 rounded-md focus:outline-none focus:ring ring-army text-black"
           />
           <button
             class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
-            @click="create()"
+            @click="remove(index)"
           >
-            Create
+            Remove
+          </button>
+        </div>
+        <div class="flex justify-end">
+          <button
+            v-if="names.length < 10"
+            class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
+            @click="add()"
+          >
+            Add
+          </button>
+          <button
+            class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
+            @click="add()"
+          >
+            Create {{ names.length }} Armies
           </button>
         </div>
       </div>
@@ -107,10 +122,10 @@ const getBalance = (value: BigNumber, fixedTo = 6) => {
   }
 }
 
-export default Vue.extend({
+export default Vue.extend<any, any, any>({
   data() {
     return {
-      name: '',
+      names: [{ value: '' }],
     }
   },
   computed: {
@@ -129,7 +144,17 @@ export default Vue.extend({
     create() {
       // @ts-ignore
       const provider = new ethers.providers.Web3Provider(window.ethereum)
-      buildArmy(provider, this.name)
+      buildArmy(provider, this.names[0].value)
+    },
+    add() {
+      if (this.names.length < 10) {
+        this.names.push({ value: '' })
+      }
+    },
+    remove(index: number) {
+      if (this.names.length !== 1) {
+        this.names.splice(index, 1)
+      }
     },
   },
 })
