@@ -72,6 +72,25 @@
           </button>
         </div>
       </div>
+      <div
+        class="bg-white border rounded-lg col-span-2 p-6 font-sans text-base normal-case"
+      >
+        Migration Information
+        <p class="mt-4 text-xs">
+          We want the best experience for our players on Soldiers Node. That is
+          why we are migrating nodes to the next level ! <br /><br /><span
+            class="font-bold text-sm"
+            >Nodes are now NFTs !</span
+          >
+          <br />
+          <br />
+          To migrate your actuals nodes to the NFT world you need to manualy
+          click on migrate to migrate some. If MetaMask don't let you do the
+          transaction due to an internal error please decrease the number of
+          nodes to migrate ! You will be able to migrate the rest to another
+          transaction.
+        </p>
+      </div>
     </div>
   </div>
 </template>

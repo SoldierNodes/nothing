@@ -1,5 +1,5 @@
 <template>
-  <div class="background relative md:static">
+  <div class="background relative">
     <div
       v-if="mobile && isPanelOpen"
       class="absolute h-full w-full z-10 bg-black opacity-60"
@@ -158,7 +158,6 @@ export default Vue.extend({
 
       // @ts-ignore
       this.$toast('Connecting...', {
-        position: 'top-right',
         timeout: 2000,
         closeOnClick: true,
         pauseOnFocusLoss: true,
@@ -184,7 +183,6 @@ export default Vue.extend({
             if (accounts[0] === undefined) {
               // @ts-ignore
               this.$toast('Account Changed. Reaload !', {
-                position: 'top-right',
                 timeout: 2000,
                 closeOnClick: true,
                 pauseOnFocusLoss: true,
@@ -201,7 +199,6 @@ export default Vue.extend({
             } else {
               // @ts-ignore
               this.$toast('Account Switched', {
-                position: 'top-right',
                 timeout: 2000,
                 closeOnClick: true,
                 pauseOnFocusLoss: true,
@@ -220,7 +217,6 @@ export default Vue.extend({
           ethereum.on('chainChanged', () => {
             // @ts-ignore
             this.$toast('Network Changed. Reaload !', {
-              position: 'top-right',
               timeout: 2000,
               closeOnClick: true,
               pauseOnFocusLoss: true,
@@ -239,14 +235,15 @@ export default Vue.extend({
 
           const provider = new ethers.providers.Web3Provider(ethereum)
 
-          this.setBalance(await getBalance(provider, this.account))
-          this.setArmies(await getArmies(provider, this.account))
-          this.setRewards(await getRewards(provider, this.account))
-          this.setArmiesArray(await getArmy(provider))
+          try {
+            this.setBalance(await getBalance(provider, this.account))
+            this.setArmies(await getArmies(provider, this.account))
+            this.setRewards(await getRewards(provider, this.account))
+            this.setArmiesArray(await getArmy(provider))
+          } catch (error) {}
 
           // @ts-ignore
           this.$toast.success('Connected Successfully', {
-            position: 'top-right',
             timeout: 2000,
             closeOnClick: true,
             pauseOnFocusLoss: true,
@@ -287,7 +284,6 @@ export default Vue.extend({
               } catch (addError) {
                 // @ts-ignore
                 this.$toast.error('Wrong Network', {
-                  position: 'top-right',
                   timeout: 5000,
                   closeOnClick: true,
                   pauseOnFocusLoss: true,
@@ -304,7 +300,6 @@ export default Vue.extend({
             } else {
               // @ts-ignore
               this.$toast.error('Wrong Network', {
-                position: 'top-right',
                 timeout: 5000,
                 closeOnClick: true,
                 pauseOnFocusLoss: true,
@@ -326,7 +321,6 @@ export default Vue.extend({
           this.$toast.error(
             'To gain access to the dApp, you must first connect your wallet',
             {
-              position: 'top-right',
               timeout: 5000,
               closeOnClick: true,
               pauseOnFocusLoss: true,
@@ -343,7 +337,6 @@ export default Vue.extend({
         } else {
           // @ts-ignore
           this.$toast.error('Please install MetaMask', {
-            position: 'top-right',
             timeout: 5000,
             closeOnClick: true,
             pauseOnFocusLoss: true,

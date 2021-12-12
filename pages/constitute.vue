@@ -136,10 +136,28 @@ export default Vue.extend<any, any, any>({
       return parseInt(getBalance(this.balance))
     },
     claim() {
-      // @ts-ignore
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      try {
+        // @ts-ignore
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
 
-      claimMe(provider)
+        claimMe(provider)
+      } catch (error) {
+        // @ts-ignore
+        this.$toast.error('Transaction failed !', {
+          position: 'top-right',
+          timeout: 2000,
+          closeOnClick: true,
+          pauseOnFocusLoss: true,
+          pauseOnHover: true,
+          draggable: true,
+          draggablePercent: 0.6,
+          showCloseButtonOnHover: false,
+          hideProgressBar: false,
+          closeButton: 'button',
+          icon: true,
+          rtl: false,
+        })
+      }
     },
     create() {
       // @ts-ignore
