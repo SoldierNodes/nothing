@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 
-const helper = '0xe483812cfd0fc0d1566729da793fe0dcbea49a2f'
+const helper = '0x1a83d1dbF89BF12219e84050d8d1ae3D001Ea51E'
 
 const abi = [
   'function createMultipleNodeWithTokensAndName(string[] memory names, uint amount) public',
