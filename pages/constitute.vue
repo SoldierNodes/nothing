@@ -86,6 +86,14 @@
             Add
           </button>
           <button
+            v-if="!isApproved"
+            class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
+            @click="approve()"
+          >
+            Approve
+          </button>
+          <button
+            v-else
             class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
             @click="create()"
           >
@@ -104,6 +112,7 @@ import { mapState } from 'vuex'
 
 import claimMe from '../utils/claim'
 import buildArmy from '../utils/buildArmy'
+import approve from '../utils/approve'
 
 const getBalance = (value: BigNumber, fixedTo = 6) => {
   const puissance = 18 - fixedTo < 0 ? 18 : 18 - fixedTo
@@ -129,7 +138,14 @@ export default Vue.extend<any, any, any>({
     }
   },
   computed: {
-    ...mapState(['isConnected', 'account', 'armies', 'balance', 'rewards']),
+    ...mapState([
+      'isConnected',
+      'account',
+      'armies',
+      'balance',
+      'rewards',
+      'isApproved',
+    ]),
   },
   methods: {
     showSoldiers() {
@@ -173,6 +189,11 @@ export default Vue.extend<any, any, any>({
       if (this.names.length !== 1) {
         this.names.splice(index, 1)
       }
+    },
+    approve() {
+      // @ts-ignore
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      approve(provider)
     },
   },
 })

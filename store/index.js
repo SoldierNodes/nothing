@@ -7,6 +7,7 @@ export const state = () => ({
   armies: 0,
   rewards: 0,
   amriesArray: [],
+  isApproved: false,
 })
 
 export const mutations = {
@@ -30,5 +31,8 @@ export const mutations = {
   },
   setArmiesArray(state, amriesArray) {
     state.amriesArray = amriesArray
+  },
+  setApproved(state, approved) {
+    state.isApproved = approved
   },
 }

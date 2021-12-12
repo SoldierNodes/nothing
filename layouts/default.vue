@@ -111,6 +111,7 @@ import getBalance from '../utils/getBalance'
 import getArmies from '../utils/getArmies'
 import getArmy from '../utils/getArmy'
 import getRewards from '../utils/getReward'
+import isApproved from '../utils/isApproved'
 
 export default Vue.extend({
   data() {
@@ -123,6 +124,7 @@ export default Vue.extend({
     ...mapState(['isConnected', 'account']),
   },
   created() {
+    // this.$router.push(`/lock`)
     if (process.client) {
       // eslint-disable-next-line nuxt/no-globals-in-created
       window.addEventListener('resize', this.resize)
@@ -144,6 +146,7 @@ export default Vue.extend({
       'setArmies',
       'setRewards',
       'setArmiesArray',
+      'setApproved',
     ]),
     resize(_: any) {
       if (window.innerWidth < 1024) {
@@ -240,6 +243,7 @@ export default Vue.extend({
             this.setArmies(await getArmies(provider, this.account))
             this.setRewards(await getRewards(provider, this.account))
             this.setArmiesArray(await getArmy(provider))
+            this.setApproved(await isApproved(provider, this.account))
           } catch (error) {}
 
           // @ts-ignore
