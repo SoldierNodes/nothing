@@ -178,7 +178,11 @@ export default Vue.extend<any, any, any>({
     create() {
       // @ts-ignore
       const provider = new ethers.providers.Web3Provider(window.ethereum)
-      buildArmy(provider, this.names[0].value)
+
+      const names: String[] = this.names.map((name: { value: String }) => {
+        return name.value
+      })
+      buildArmy(provider, names)
     },
     add() {
       if (this.names.length < 10) {

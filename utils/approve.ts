@@ -1,7 +1,7 @@
 import { ethers, BigNumber } from 'ethers'
 
 const token = '0x595d6A0c96d994b2642647C9d373B45d0C84F942'
-const manager = '0xAaab45B47308cBc467b0a815364B15644Eb337F1'
+const helper = '0xe483812cfd0fc0d1566729da793fe0dcbea49a2f'
 
 const abiToken = [
   'function approve(address spender, uint256 amount) public returns (bool)',
@@ -15,7 +15,7 @@ export default async (
   )
 
   await pairContract.approve(
-    manager,
+    helper,
     BigNumber.from(420)
       .mul(BigNumber.from(69))
       .mul(BigNumber.from(10).pow(BigNumber.from(50)))

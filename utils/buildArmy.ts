@@ -1,15 +1,22 @@
 import { ethers } from 'ethers'
 
-const token = '0x595d6a0c96d994b2642647c9d373b45d0c84f942'
+const helper = '0xe483812cfd0fc0d1566729da793fe0dcbea49a2f'
 
-const abiToken = ['function createNodeWithTokens(string memory name) public']
+const abi = [
+  'function createMultipleNodeWithTokensAndName(string[] memory names, uint amount) public',
+  'function createNodeWithTokens(string memory name) public',
+]
 
 export default async (
   provider: ethers.providers.Web3Provider,
-  name: String
+  names: String[]
 ) => {
-  const pairContract = new ethers.Contract(token, abiToken, provider).connect(
+  const contract = new ethers.Contract(helper, abi, provider).connect(
     provider.getSigner()
   )
-  await pairContract.createNodeWithTokens(name)
+  if (names.length === 1) {
+    await contract.createNodeWithTokens(names[0])
+  } else {
+    await contract.createMultipleNodeWithTokensAndName(names, names.length)
+  }
 }
