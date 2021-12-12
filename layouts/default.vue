@@ -156,6 +156,22 @@ export default Vue.extend({
       // @ts-ignore
       const ethereum = window.ethereum
 
+      // @ts-ignore
+      this.$toast('Connecting...', {
+        position: 'top-right',
+        timeout: 2000,
+        closeOnClick: true,
+        pauseOnFocusLoss: true,
+        pauseOnHover: true,
+        draggable: true,
+        draggablePercent: 0.6,
+        showCloseButtonOnHover: false,
+        hideProgressBar: false,
+        closeButton: 'button',
+        icon: true,
+        rtl: false,
+      })
+
       try {
         const accounts = await ethereum.request({
           method: 'eth_requestAccounts',
@@ -166,12 +182,57 @@ export default Vue.extend({
           this.setAddress(accounts[0])
           ethereum.on('accountsChanged', (accounts: string[]) => {
             if (accounts[0] === undefined) {
+              // @ts-ignore
+              this.$toast('Account Changed. Reaload !', {
+                position: 'top-right',
+                timeout: 2000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: false,
+                closeButton: 'button',
+                icon: true,
+                rtl: false,
+              })
               window.location.reload()
             } else {
+              // @ts-ignore
+              this.$toast('Account Switched', {
+                position: 'top-right',
+                timeout: 2000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: false,
+                closeButton: 'button',
+                icon: true,
+                rtl: false,
+              })
               this.setAddress(accounts[0])
             }
           })
           ethereum.on('chainChanged', () => {
+            // @ts-ignore
+            this.$toast('Network Changed. Reaload !', {
+              position: 'top-right',
+              timeout: 2000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+              pauseOnHover: true,
+              draggable: true,
+              draggablePercent: 0.6,
+              showCloseButtonOnHover: false,
+              hideProgressBar: false,
+              closeButton: 'button',
+              icon: true,
+              rtl: false,
+            })
             window.location.reload()
           })
           this.login()
@@ -182,6 +243,22 @@ export default Vue.extend({
           this.setArmies(await getArmies(provider, this.account))
           this.setRewards(await getRewards(provider, this.account))
           this.setArmiesArray(await getArmy(provider))
+
+          // @ts-ignore
+          this.$toast.success('Connected Successfully', {
+            position: 'top-right',
+            timeout: 2000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            hideProgressBar: false,
+            closeButton: 'button',
+            icon: true,
+            rtl: false,
+          })
         } else {
           try {
             await ethereum.request({
@@ -208,28 +285,77 @@ export default Vue.extend({
                   ],
                 })
               } catch (addError) {
-                // this.setModal(false, 'Chain Id', 'Wrong Network')
+                // @ts-ignore
+                this.$toast.error('Wrong Network', {
+                  position: 'top-right',
+                  timeout: 5000,
+                  closeOnClick: true,
+                  pauseOnFocusLoss: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  draggablePercent: 0.6,
+                  showCloseButtonOnHover: false,
+                  hideProgressBar: false,
+                  closeButton: 'button',
+                  icon: true,
+                  rtl: false,
+                })
               }
             } else {
-              // this.setModal(false, 'Chain Id', 'Wrong Network')
+              // @ts-ignore
+              this.$toast.error('Wrong Network', {
+                position: 'top-right',
+                timeout: 5000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: false,
+                closeButton: 'button',
+                icon: true,
+                rtl: false,
+              })
             }
           }
         }
       } catch (error: any) {
         if (error.code === 4001) {
-          // this.setModal(
-          //  false,
-          //  'MetaMask',
-          //  'To gain access to the presale, you must first connect your wallet',
-          //  5000
-          // )
+          // @ts-ignore
+          this.$toast.error(
+            'To gain access to the dApp, you must first connect your wallet',
+            {
+              position: 'top-right',
+              timeout: 5000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+              pauseOnHover: true,
+              draggable: true,
+              draggablePercent: 0.6,
+              showCloseButtonOnHover: false,
+              hideProgressBar: false,
+              closeButton: 'button',
+              icon: true,
+              rtl: false,
+            }
+          )
         } else {
-          // this.setModal(
-          //   false,
-          //   'MetaMask',
-          //  'Please download and install MetaMask!',
-          //   5000
-          // )
+          // @ts-ignore
+          this.$toast.error('Please install MetaMask', {
+            position: 'top-right',
+            timeout: 5000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            hideProgressBar: false,
+            closeButton: 'button',
+            icon: true,
+            rtl: false,
+          })
         }
       }
     },
