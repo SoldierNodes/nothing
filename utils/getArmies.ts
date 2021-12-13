@@ -1,11 +1,15 @@
 import { BigNumber, ethers } from 'ethers'
 
 const manager = '0x3A7E18ac06f31Eb8B1205a02902DDC0f0d20Ab50'
+const helper = '0xc1Ea0bB639611cb850e4c6D174Aca293013e7359'
 
 const oldmanager = '0x125AB7BA207824ECE40722070370eC5A38bBfa89'
 
 const abi = [
   'function getNodesStringOf(address _account) external view returns (string memory)',
+]
+
+const abiHelper = [
   'function notMigrated(address _account) view external returns (uint)',
 ]
 
@@ -20,9 +24,10 @@ export default async (
   account: String
 ) => {
   const contract = new ethers.Contract(manager, abi, provider)
+  const contractXD = new ethers.Contract(helper, abiHelper, provider)
   const armies: String = await contract.getNodesStringOf(account)
   const possibleMint = (
-    (await contract.notMigrated(account)) as BigNumber
+    (await contractXD.notMigrated(account)) as BigNumber
   ).toNumber()
 
   const realArmies = armies.split(`#`).map((value: String) => {
@@ -38,24 +43,26 @@ export default async (
 
   const oldContract = new ethers.Contract(oldmanager, oldabi, provider)
 
-  const names = await oldContract._getNodesNames(account)
-  const namesArray = names.split('#')
-  const claims = await oldContract._getNodesLastClaimTime(account)
-  const claimsArray = claims.split('#')
-  const creation = await oldContract._getNodesCreationTime(account)
-  const creationArray = creation.split('#')
-
   const notMigrated = []
 
-  for (let i = 0; i < possibleMint; i++) {
-    notMigrated.push({
-      id: -1,
-      name: namesArray[i],
-      mint: creationArray[i],
-      claim: claimsArray[i],
-      earned: 2,
-    })
-  }
+  try {
+    const names = await oldContract._getNodesNames(account)
+    const namesArray = names.split('#')
+    const claims = await oldContract._getNodesLastClaimTime(account)
+    const claimsArray = claims.split('#')
+    const creation = await oldContract._getNodesCreationTime(account)
+    const creationArray = creation.split('#')
+
+    for (let i = 0; i < possibleMint; i++) {
+      notMigrated.push({
+        id: -1,
+        name: namesArray[i],
+        mint: creationArray[i],
+        claim: claimsArray[i],
+        earned: 2,
+      })
+    }
+  } catch (error) {}
 
   return [...notMigrated, ...realArmies]
 }

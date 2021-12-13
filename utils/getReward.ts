@@ -12,7 +12,11 @@ export default async (
   account: String
 ) => {
   const pairContract = new ethers.Contract(token, abiToken, provider)
-  const rewards: BigNumber = await pairContract.getRewardAmountOf(account)
+  let rewards: BigNumber = BigNumber.from(0)
+
+  try {
+    rewards = await pairContract.getRewardAmountOf(account)
+  } catch (error) {}
 
   return parseInt(
     rewards
