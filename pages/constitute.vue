@@ -156,7 +156,11 @@ export default Vue.extend<any, any, any>({
         // @ts-ignore
         const provider = new ethers.providers.Web3Provider(window.ethereum)
 
-        claimMe(provider)
+        const _nodes = (this.armies as Array<{ id: number }>).map(
+          (val) => val.id
+        )
+
+        claimMe(provider, _nodes)
       } catch (error) {
         // @ts-ignore
         this.$toast.error('Transaction failed !', {
