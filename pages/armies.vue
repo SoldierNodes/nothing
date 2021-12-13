@@ -76,20 +76,22 @@
       <div
         class="bg-white border rounded-lg col-span-2 p-6 font-sans text-base normal-case"
       >
-        Migration Information
+        Soldiers! We have a letter from our Generals:
         <p class="mt-4 text-xs">
-          We want the best experience for our players on Soldiers Node. That is
-          why we are migrating nodes to the next level ! <br /><br /><span
-            class="font-bold text-sm"
+          In order to provide the best experience for our players on
+          SoldierNodes, we are upgrading nodes to the next level !
+          <br /><br /><span class="font-bold text-sm"
             >Nodes are now NFTs !</span
           >
           <br />
           <br />
-          To migrate your actuals nodes to the NFT world you need to manualy
-          click on migrate to migrate some. If MetaMask don't let you do the
-          transaction due to an internal error please decrease the number of
-          nodes to migrate ! You will be able to migrate the rest to another
-          transaction.
+
+          What are the steps to follow? They're really simple. Manually click on
+          "Upgrade". Your wallet provider (ex: Metamask) should pop-up. Please
+          accept the transaction. If the transaction doesn't go through at first
+          due or an internal error, please decrease the number of armies (nodes)
+          to upgrade ! You will then be able to upgrade the rest of your armies
+          (nodes) in another transaction.
         </p>
       </div>
     </div>

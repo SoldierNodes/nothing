@@ -360,6 +360,7 @@ export default Vue.extend({
 <style lang="scss">
 .background {
   background-image: url('/images/bg.svg');
+  background-size: cover;
 }
 
 .slide-enter-active,

@@ -38,25 +38,44 @@
           class="flex-grow p-6 bg-army bg-opacity-70 text-white text-lg flex items-center"
         >
           <div class="flex-grow">
-            <div class="flex justify-between my-2">
-              <span>Army cost</span>
-              <span class="font-bold">10</span>
+            <div class="flex my-2">
+              <div class="flex flex-grow justify-between">
+                <span>Army cost</span>
+                <span class="font-bold">10</span>
+              </div>
+
+              <button
+                class="invisible ml-6 px-3 py-1 text-sm font-bold bg-white border-2 border-army text-black rounded hover:bg-army hover:text-white transition"
+              >
+                Claim
+              </button>
             </div>
-            <div class="flex justify-between my-2">
-              <span>Army Rewards/day</span>
-              <span class="font-bold">1</span>
+            <div class="flex my-2">
+              <div class="flex flex-grow justify-between">
+                <span>Army Rewards/day</span>
+                <span class="font-bold">1</span>
+              </div>
+
+              <button
+                class="invisible ml-6 px-3 py-1 text-sm font-bold bg-white border-2 border-army text-black rounded hover:bg-army hover:text-white transition"
+              >
+                Claim
+              </button>
             </div>
-            <div class="flex justify-between my-2">
-              <span>Claimable</span>
-              <span class="font-bold">{{ rewards }}</span>
+            <div class="flex my-2">
+              <div class="flex flex-grow justify-between">
+                <span>Claimable</span>
+                <span class="font-bold">{{ rewards }}</span>
+              </div>
+
+              <button
+                class="ml-6 px-3 py-1 text-sm font-bold bg-white border-2 border-army text-black rounded hover:bg-army hover:text-white transition"
+                @click="claim()"
+              >
+                Claim
+              </button>
             </div>
           </div>
-          <button
-            class="ml-6 px-3 py-1 text-sm font-bold bg-white border-2 border-army text-black rounded hover:bg-army hover:text-white transition"
-            @click="claim()"
-          >
-            Claim
-          </button>
         </div>
       </div>
       <div

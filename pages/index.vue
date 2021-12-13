@@ -89,6 +89,13 @@
       </div>
     </div>
 
+    <div
+      class="w-full md:w-3/4 lg:w-5/6 xl:w-3/4 bg-white border rounded-lg col-span-2 p-6 font-sans text-lg text-center normal-case mt-10"
+    >
+      You have to own 10 $SLD to create an army.<br />
+      Each army gives you 1 $SLD every 24hrs.
+    </div>
+
     <div class="text-xl mt-14 font-bold text-army text-center">
       When you buy 10 soldiers, you can form 1 army.
     </div>
