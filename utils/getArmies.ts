@@ -1,7 +1,7 @@
 import { BigNumber, ethers } from 'ethers'
 
-const manager = '0x3A7E18ac06f31Eb8B1205a02902DDC0f0d20Ab50'
-const helper = '0xc1Ea0bB639611cb850e4c6D174Aca293013e7359'
+const manager = '0xBe202bBe44aaC951215781f3aB75D43a68B5f013'
+const helper = '0x5327bc2f3B68735caf2A870DF5E488dF6cbb4508'
 
 const oldmanager = '0x125AB7BA207824ECE40722070370eC5A38bBfa89'
 
