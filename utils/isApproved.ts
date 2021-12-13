@@ -1,6 +1,6 @@
 import { ethers, BigNumber } from 'ethers'
 
-const token = '0x595d6A0c96d994b2642647C9d373B45d0C84F942'
+const token = '0xad7476c49d3f82a144f4836aacb9b069c188b759'
 const helper = '0xc1Ea0bB639611cb850e4c6D174Aca293013e7359'
 
 const abiToken = [
