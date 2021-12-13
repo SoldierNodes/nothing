@@ -67,6 +67,7 @@
         <div class="flex justify-end mt-10">
           <button
             class="px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
+            @click="migrate()"
           >
             Migrate {{ selected.length }} Armies
           </button>
@@ -99,6 +100,8 @@
 import { BigNumber, ethers } from 'ethers'
 import Vue from 'vue'
 import { mapState } from 'vuex'
+
+import migrateMe from '../utils/migrate'
 
 const getBalance = (value: BigNumber, fixedTo = 6) => {
   const puissance = 18 - fixedTo < 0 ? 18 : 18 - fixedTo
@@ -149,6 +152,12 @@ export default Vue.extend<any, any, any, any>({
       } else {
         this.selected = this.selected.filter((value: string) => value !== name)
       }
+    },
+    async migrate() {
+      // @ts-ignore
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+      await migrateMe(provider, this.selected.length, 1639327850)
     },
   },
 })

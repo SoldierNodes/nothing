@@ -56,7 +56,7 @@
             ><i class="bx bxl-twitter"></i
           ></a>
           <a
-            href="https://discord.gg/aVGZFtJS"
+            href="http://discord.gg/soldiernodes"
             class="hover:text-army transition"
             ><i class="bx bxl-discord-alt"></i
           ></a>

@@ -34,7 +34,7 @@
           </div>
           <div class="flex justify-between my-2">
             <span>Symbol</span>
-            <span class="font-bold">$SOLDIER</span>
+            <span class="font-bold">$SLD</span>
           </div>
           <a
             href="https://snowtrace.io/address/0x9Ad6C38BE94206cA50bb0d90783181662f0Cfa10"
@@ -55,7 +55,7 @@
           >Balance:
           {{
             isConnected
-              ? `${showNumbers(showBalance())} $SOLDIER`
+              ? `${showNumbers(showBalance())} $SLD`
               : 'Please Connect Wallet'
           }}</span
         >
