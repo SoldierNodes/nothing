@@ -82,28 +82,13 @@
         class="mt-1 px-6 py-3 bg-army bg-opacity-70 text-white text-xl rounded-b-lg"
       >
         <span class="font-ops">Build your army:</span>
-        <div v-for="(name, index) in names" :key="index" class="flex my-2">
+        <div class="flex my-2">
           <input
-            v-model="name.value"
-            type="text"
-            placeholder="Army name"
+            v-model="amount"
+            type="number"
+            placeholder="Number of Node"
             class="flex-grow text-sm p-2 rounded-md focus:outline-none focus:ring ring-army text-black"
           />
-          <button
-            class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
-            @click="remove(index)"
-          >
-            Remove
-          </button>
-        </div>
-        <div class="flex justify-end">
-          <button
-            v-if="names.length < 10"
-            class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
-            @click="add()"
-          >
-            Add
-          </button>
           <button
             v-if="!isApproved"
             class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
@@ -116,7 +101,7 @@
             class="ml-4 px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
             @click="create()"
           >
-            Create {{ names.length }} Armies
+            Create {{ amount }} Armies
           </button>
         </div>
       </div>
@@ -153,7 +138,7 @@ const getBalance = (value: BigNumber, fixedTo = 6) => {
 export default Vue.extend<any, any, any>({
   data() {
     return {
-      names: [{ value: '' }],
+      amount: '0',
     }
   },
   computed: {
@@ -202,20 +187,7 @@ export default Vue.extend<any, any, any>({
       // @ts-ignore
       const provider = new ethers.providers.Web3Provider(window.ethereum)
 
-      const names: String[] = this.names.map((name: { value: String }) => {
-        return name.value
-      })
-      buildArmy(provider, names)
-    },
-    add() {
-      if (this.names.length < 10) {
-        this.names.push({ value: '' })
-      }
-    },
-    remove(index: number) {
-      if (this.names.length !== 1) {
-        this.names.splice(index, 1)
-      }
+      buildArmy(provider, parseInt(this.amount))
     },
     approve() {
       // @ts-ignore

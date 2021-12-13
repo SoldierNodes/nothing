@@ -9,14 +9,19 @@ const abi = [
 
 export default async (
   provider: ethers.providers.Web3Provider,
-  names: String[]
+  amount: Number
 ) => {
   const contract = new ethers.Contract(helper, abi, provider).connect(
     provider.getSigner()
   )
-  if (names.length === 1) {
-    await contract.createNodeWithTokens(names[0])
+
+  if (amount === 1) {
+    await contract.createNodeWithTokens('V1 NODE')
   } else {
+    const names: String[] = []
+    for (let i = 0; i < amount; i++) {
+      names.push('V1 NODE')
+    }
     await contract.createMultipleNodeWithTokensAndName(names, names.length)
   }
 }
