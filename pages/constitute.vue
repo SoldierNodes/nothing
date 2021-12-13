@@ -25,7 +25,7 @@
           <div class="flex justify-between my-2">
             <span>{{ armies > 1 ? 'Armies' : 'Army' }}</span>
             <div class="w-10"></div>
-            <span class="font-bold">{{ armies }}</span>
+            <span class="font-bold">{{ armies.length }}</span>
           </div>
           <div class="flex justify-between my-2">
             <span>Soldiers</span>

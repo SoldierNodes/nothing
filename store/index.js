@@ -4,9 +4,8 @@ export const state = () => ({
   isConnected: false,
   account: '',
   balance: ethers.BigNumber.from(0),
-  armies: 0,
   rewards: 0,
-  amriesArray: [],
+  armies: [],
   isApproved: false,
 })
 
@@ -28,9 +27,6 @@ export const mutations = {
   },
   setRewards(state, rewards) {
     state.rewards = rewards
-  },
-  setArmiesArray(state, amriesArray) {
-    state.amriesArray = amriesArray
   },
   setApproved(state, approved) {
     state.isApproved = approved

@@ -8,7 +8,7 @@
       <div
         class="bg-army bg-opacity-70 h-32 rounded-lg flex items-center justify-center text-white"
       >
-        Amount of {{ armies > 1 ? 'armies' : 'army' }}: {{ armies }}
+        Amount of {{ armies > 1 ? 'armies' : 'army' }}: {{ armies.length }}
       </div>
       <div
         class="bg-army bg-opacity-70 h-32 rounded-lg flex items-center justify-center text-white"
@@ -26,18 +26,18 @@
             <span class="font-bold">Creation Date</span>
           </div>
           <div class="flex items-center">
-            <span class="font-bold">Reward Avaible</span>
+            <span class="font-bold">Earned</span>
           </div>
           <div class="flex items-center">
             <span class="font-bold">Last Claim</span>
           </div>
           <div class="flex items-center">
-            <span class="font-bold">Is NFT</span>
+            <span class="font-bold">Id</span>
           </div>
         </div>
         <div class="h-6"></div>
         <div
-          v-for="(army, index) in amriesArray"
+          v-for="(army, index) in armies"
           :key="index"
           class="grid grid-cols-5 my-2"
         >
@@ -45,16 +45,16 @@
             <span class="font-bold">{{ army.name }}</span>
           </div>
           <div class="flex items-center">
-            <span class="font-bold">{{ showDate(army.created) }}</span>
+            <span class="font-bold">{{ showDate(army.mint) }}</span>
           </div>
           <div class="flex items-center">
-            <span class="font-bold">{{ army.rewards }}</span>
+            <span class="font-bold">{{ army.earned }}</span>
           </div>
           <div class="flex items-center">
-            <span class="font-bold">{{ showDate(army.claims) }}</span>
+            <span class="font-bold">{{ showDate(army.claim) }}</span>
           </div>
           <div class="flex items-center">
-            <span v-if="army.nft" class="font-bold">Yes</span>
+            <span v-if="army.id > 0" class="font-bold">{{ army.id }}</span>
             <button
               v-else
               :class="classArmy(army.name)"

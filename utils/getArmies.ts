@@ -1,18 +1,28 @@
-import { ethers, BigNumber } from 'ethers'
+import { ethers } from 'ethers'
 
-// TOKEN CONTRACT
-const token = '0x595d6a0c96d994b2642647c9d373b45d0c84f942'
+const manager = '0x4Ad175CCCF81FCd89e14595EF3b3C57CAeFC7D06'
 
-const abiToken = [
-  'function getNodeNumberOf(address account) public view returns (uint256)',
+const abi = [
+  'function getNodesStringOf(address _account) external view returns (string memory)',
 ]
 
 export default async (
   provider: ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider,
   account: String
 ) => {
-  const pairContract = new ethers.Contract(token, abiToken, provider)
-  const armies: BigNumber = await pairContract.getNodeNumberOf(account)
+  const contract = new ethers.Contract(manager, abi, provider)
+  const armies: String = await contract.getNodesStringOf(account)
 
-  return parseInt(armies.toString())
+  const realArmies = armies.split(`#`).map((value: String) => {
+    const values = value.split(`.`)
+    return {
+      id: values[0],
+      name: values[1],
+      mint: values[2],
+      claim: values[3],
+      earned: values[4],
+    }
+  })
+
+  return realArmies
 }

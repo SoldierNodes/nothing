@@ -109,7 +109,6 @@ import { mapMutations, mapState } from 'vuex'
 
 import getBalance from '../utils/getBalance'
 import getArmies from '../utils/getArmies'
-import getArmy from '../utils/getArmy'
 import getRewards from '../utils/getReward'
 import isApproved from '../utils/isApproved'
 
@@ -145,7 +144,6 @@ export default Vue.extend({
       'setBalance',
       'setArmies',
       'setRewards',
-      'setArmiesArray',
       'setApproved',
     ]),
     resize(_: any) {
@@ -242,7 +240,6 @@ export default Vue.extend({
             this.setBalance(await getBalance(provider, this.account))
             this.setArmies(await getArmies(provider, this.account))
             this.setRewards(await getRewards(provider, this.account))
-            this.setArmiesArray(await getArmy(provider))
             this.setApproved(await isApproved(provider, this.account))
           } catch (error) {}
 
