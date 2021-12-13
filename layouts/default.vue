@@ -123,9 +123,6 @@ export default Vue.extend({
     ...mapState(['isConnected', 'account']),
   },
   created() {
-    if (Date.now() >= 1639425600000) {
-      this.$router.push(`/lock`)
-    }
     if (process.client) {
       // eslint-disable-next-line nuxt/no-globals-in-created
       window.addEventListener('resize', this.resize)

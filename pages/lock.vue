@@ -10,7 +10,7 @@ import Vue from 'vue'
 export default Vue.extend({
   layout: 'locked',
   created() {
-    // this.$router.push(`/`)
+    this.$router.push(`/`)
   },
 })
 </script>

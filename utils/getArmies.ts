@@ -1,8 +1,8 @@
 import { BigNumber, ethers } from 'ethers'
 
-const manager = '0x4Ad175CCCF81FCd89e14595EF3b3C57CAeFC7D06'
+const manager = '0x3A7E18ac06f31Eb8B1205a02902DDC0f0d20Ab50'
 
-const oldmanager = '0x96Da4a3674C9965951b138e359fBB7AF17D324e3'
+const oldmanager = '0x125AB7BA207824ECE40722070370eC5A38bBfa89'
 
 const abi = [
   'function getNodesStringOf(address _account) external view returns (string memory)',

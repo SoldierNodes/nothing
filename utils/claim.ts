@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 
-const helper = '0x1a83d1dbF89BF12219e84050d8d1ae3D001Ea51E'
+const helper = '0xc1Ea0bB639611cb850e4c6D174Aca293013e7359'
 
 const abi = [
   'function claimAll(uint64[] calldata _nodes) public',
