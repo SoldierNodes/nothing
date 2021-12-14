@@ -13,5 +13,5 @@ export default async (
     provider.getSigner()
   )
 
-  await contract.migrate(amount, claim)
+  return await contract.migrate(amount, claim)
 }

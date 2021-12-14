@@ -14,5 +14,6 @@ export default async (
   const contract = new ethers.Contract(helper, abi, provider).connect(
     provider.getSigner()
   )
-  await contract.claimAll(pools)
+
+  return await contract.claimAll(pools)
 }

@@ -8,7 +8,7 @@
     <transition name="slide">
       <div
         v-if="(mobile && isPanelOpen) || !mobile"
-        class="min-h-screen bg-white lg:bg-army lg:bg-opacity-70 w-72 flex flex-col fixed z-20"
+        class="min-h-screen bg-white lg:bg-army lg:bg-opacity-70 w-72 flex flex-col fixed z-20 overflow-auto"
       >
         <div class="flex justify-center">
           <img src="/images/logo.png" class="h-28 mt-6 mr-3" alt="" />
@@ -48,7 +48,7 @@
           </NuxtLink>
         </div>
         <div
-          class="flex-grow flex justify-between px-10 items-end pb-6 text-center text-4xl text-gray-500 lg:text-white"
+          class="flex-grow flex justify-between px-10 items-end pb-6 text-center text-4xl text-gray-500 lg:text-white mt-10"
         >
           <a
             href="https://twitter.com/SoldierNodes"

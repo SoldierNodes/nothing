@@ -66,6 +66,7 @@
         </div>
         <div class="flex justify-end mt-10">
           <button
+            v-if="numberMigrate > 0"
             class="px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
             @click="migrate()"
           >
@@ -129,7 +130,7 @@ export default Vue.extend<any, any, any, any>({
     }
   },
   computed: {
-    ...mapState(['armies', 'balance', 'amriesArray']),
+    ...mapState(['armies', 'balance', 'amriesArray', 'isConnected']),
     classArmy() {
       return (name: string) => {
         if (this.selected.includes(name)) {
@@ -138,6 +139,16 @@ export default Vue.extend<any, any, any, any>({
           return `px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition`
         }
       }
+    },
+    numberMigrate() {
+      let toMigrate = 0
+      for (let i = 0; i < this.armies.length; i++) {
+        const army = this.armies[i]
+        if (parseInt(army.id) < 0) {
+          toMigrate = toMigrate + 1
+        }
+      }
+      return toMigrate
     },
   },
   methods: {
@@ -161,7 +172,28 @@ export default Vue.extend<any, any, any, any>({
 
       try {
         await migrateMe(provider, this.selected.length, 1639339210)
-      } catch (error) {}
+      } catch (error: any) {
+        if (
+          error.data.message ===
+          "execution reverted: HELPER: You can't migrate nodes that you previously own"
+        ) {
+          // @ts-ignore
+          this.$toast.error('You have migrated too many nodes.', {
+            position: 'top-right',
+            timeout: 4000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            hideProgressBar: false,
+            closeButton: 'button',
+            icon: true,
+            rtl: false,
+          })
+        }
+      }
     },
   },
 })

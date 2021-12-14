@@ -155,7 +155,7 @@ export default Vue.extend<any, any, any>({
     showSoldiers() {
       return parseInt(getBalance(this.balance))
     },
-    claim() {
+    async claim() {
       try {
         // @ts-ignore
         const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -171,7 +171,29 @@ export default Vue.extend<any, any, any>({
           }
         }
 
-        claimMe(provider, _goodNodes)
+        try {
+          await claimMe(provider, _goodNodes)
+        } catch (error: any) {
+          switch (error.data.message) {
+            case "execution reverted: HELPER: You don't have enough reward to cash out":
+              // @ts-ignore
+              this.$toast.error("You don't have enough funds to cashout", {
+                position: 'top-right',
+                timeout: 4000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: false,
+                closeButton: 'button',
+                icon: true,
+                rtl: false,
+              })
+              break
+          }
+        }
       } catch (error) {
         // @ts-ignore
         this.$toast.error('Transaction failed !', {
@@ -190,11 +212,105 @@ export default Vue.extend<any, any, any>({
         })
       }
     },
-    create() {
+    async create() {
       // @ts-ignore
       const provider = new ethers.providers.Web3Provider(window.ethereum)
 
-      buildArmy(provider, parseInt(this.amount))
+      if (this.amount > 0) {
+        try {
+          await buildArmy(provider, parseInt(this.amount))
+        } catch (error: any) {
+          switch (error.data.message) {
+            case 'execution reverted: HELPER: name size is invalid':
+              // @ts-ignore
+              this.$toast.error('Name size is invalid', {
+                position: 'top-right',
+                timeout: 4000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: false,
+                closeButton: 'button',
+                icon: true,
+                rtl: false,
+              })
+              break
+
+            case 'execution reverted: HELPER:  Creation from the zero address':
+              // @ts-ignore
+              this.$toast.error('You are sending from 0 address', {
+                position: 'top-right',
+                timeout: 4000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: false,
+                closeButton: 'button',
+                icon: true,
+                rtl: false,
+              })
+              break
+
+            case 'execution reverted: HELPER: Team cannot create node':
+              // @ts-ignore
+              this.$toast.error('Team cannot create nodes', {
+                position: 'top-right',
+                timeout: 4000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: false,
+                closeButton: 'button',
+                icon: true,
+                rtl: false,
+              })
+              break
+
+            case 'execution reverted: HELPER: Balance too low for creation.':
+              // @ts-ignore
+              this.$toast.error('Team cannot create nodes', {
+                position: 'top-right',
+                timeout: 4000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: false,
+                closeButton: 'button',
+                icon: true,
+                rtl: false,
+              })
+              break
+          }
+        }
+      } else {
+        // @ts-ignore
+        this.$toast.error('You need to create at least 1 Army', {
+          position: 'top-right',
+          timeout: 4000,
+          closeOnClick: true,
+          pauseOnFocusLoss: true,
+          pauseOnHover: true,
+          draggable: true,
+          draggablePercent: 0.6,
+          showCloseButtonOnHover: false,
+          hideProgressBar: false,
+          closeButton: 'button',
+          icon: true,
+          rtl: false,
+        })
+      }
     },
     approve() {
       // @ts-ignore
