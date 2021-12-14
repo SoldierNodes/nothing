@@ -1,7 +1,7 @@
 import { ethers, BigNumber } from 'ethers'
 
 const token = '0xad7476c49D3f82a144f4836aACb9b069c188b759'
-const helper = '0x9a481E39afc0463E01D7ABcFe47f8D6214AcE9Dc'
+const helper = '0x34166136b7cC1B1AcA438967FFD50Bc56A19a307'
 
 const abiToken = [
   'function approve(address spender, uint256 amount) public returns (bool)',

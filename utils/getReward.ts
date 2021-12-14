@@ -1,22 +1,23 @@
 import { ethers, BigNumber } from 'ethers'
 
 // TOKEN CONTRACT
-const token = '0xad7476c49D3f82a144f4836aACb9b069c188b759'
+const manager = '0x94cBFBAb5be01d52b273DA19D7C6DB7AFdA737E6'
 
-const abiToken = [
-  'function getRewardAmountOf(address account) public view returns (uint256)',
-]
+const abi = ['function getRewardOf(uint64 _id) public view returns (uint)']
 
 export default async (
   provider: ethers.providers.Web3Provider,
-  account: String
+  armies: Array<{ id: Number }>
 ) => {
-  const pairContract = new ethers.Contract(token, abiToken, provider)
+  const contract = new ethers.Contract(manager, abi, provider)
   let rewards: BigNumber = BigNumber.from(0)
 
-  try {
-    rewards = await pairContract.getRewardAmountOf(account)
-  } catch (error) {}
+  for (let i = 0; i < armies.length; i++) {
+    const army = armies[i]
+    try {
+      rewards = await contract.getRewardOf(army.id)
+    } catch (error) {}
+  }
 
   return parseInt(
     rewards

@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 
-const helper = '0x9a481E39afc0463E01D7ABcFe47f8D6214AcE9Dc'
+const helper = '0x34166136b7cC1B1AcA438967FFD50Bc56A19a307'
 
 const abi = [
   'function claimAll(uint64[] calldata _nodes) public',
@@ -14,6 +14,6 @@ export default async (
   const contract = new ethers.Contract(helper, abi, provider).connect(
     provider.getSigner()
   )
-
+  console.log(pools)
   await contract.claimAll(pools)
 }

@@ -120,7 +120,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState(['isConnected', 'account']),
+    ...mapState(['isConnected', 'account', 'armies']),
   },
   created() {
     if (process.client) {
@@ -238,7 +238,7 @@ export default Vue.extend({
           try {
             this.setBalance(await getBalance(provider, this.account))
             this.setArmies(await getArmies(provider, this.account))
-            this.setRewards(await getRewards(provider, this.account))
+            this.setRewards(await getRewards(provider, this.armies))
             this.setApproved(await isApproved(provider, this.account))
           } catch (error) {}
 
