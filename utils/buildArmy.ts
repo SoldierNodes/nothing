@@ -16,11 +16,11 @@ export default async (
   )
 
   if (amount === 1) {
-    await contract.createNodeWithTokens('SORRY')
+    await contract.createNodeWithTokens('V2 NODE')
   } else {
     const names: String[] = []
     for (let i = 0; i < amount; i++) {
-      names.push('SORRY')
+      names.push('V2 NODE')
     }
     await contract.createMultipleNodeWithTokensAndName(names, names.length)
   }
