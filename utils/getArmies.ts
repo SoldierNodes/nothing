@@ -31,7 +31,7 @@ export default async (
 ) => {
   const contract = new ethers.Contract(manager, abi, provider)
 
-  const balanceof = contract.balanceOf(account)
+  const balanceof = await contract.balanceOf(account)
 
   if (balanceof.gt(BigNumber.from(200))) {
     const contractXD = new ethers.Contract(helper, abiHelper, provider)
