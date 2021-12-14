@@ -159,7 +159,9 @@ export default Vue.extend<any, any, any, any>({
       // @ts-ignore
       const provider = new ethers.providers.Web3Provider(window.ethereum)
 
-      await migrateMe(provider, this.selected.length, 1639327850)
+      try {
+        await migrateMe(provider, this.selected.length, 1639339210)
+      } catch (error) {}
     },
   },
 })

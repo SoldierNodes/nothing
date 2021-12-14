@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 
-const helper = '0x5327bc2f3B68735caf2A870DF5E488dF6cbb4508'
+const helper = '0x9a481E39afc0463E01D7ABcFe47f8D6214AcE9Dc'
 
 const abi = ['function migrate(uint _amount, uint _claim) external']
 
