@@ -15,7 +15,7 @@ export default async (
   for (let i = 0; i < armies.length; i++) {
     const army = armies[i]
     try {
-      rewards = await contract.getRewardOf(army.id)
+      rewards = rewards.add(await contract.getRewardOf(army.id))
     } catch (error) {}
   }
 
