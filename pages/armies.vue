@@ -192,6 +192,22 @@ export default Vue.extend<any, any, any, any>({
             icon: true,
             rtl: false,
           })
+        } else {
+          // @ts-ignore
+          this.$toast.error('Something went wrong !', {
+            position: 'top-right',
+            timeout: 4000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            hideProgressBar: false,
+            closeButton: 'button',
+            icon: true,
+            rtl: false,
+          })
         }
       }
     },
