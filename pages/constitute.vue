@@ -192,6 +192,27 @@ export default Vue.extend<any, any, any>({
                 rtl: false,
               })
               break
+
+            default:
+              // @ts-ignore
+              this.$toast.error(
+                'Sorry please try to claim by selecting armies in "Your Amry"',
+                {
+                  position: 'top-right',
+                  timeout: 4000,
+                  closeOnClick: true,
+                  pauseOnFocusLoss: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  draggablePercent: 0.6,
+                  showCloseButtonOnHover: false,
+                  hideProgressBar: false,
+                  closeButton: 'button',
+                  icon: true,
+                  rtl: false,
+                }
+              )
+              break
           }
         }
       } catch (error) {

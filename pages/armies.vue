@@ -66,6 +66,11 @@
           <div class="flex items-center">
             <span class="font-bold">{{ army.reward }}</span>
           </div>
+          <div class="flex items-center">
+            <button :class="classClaim(army.id)" @click="claimIt(army.id)">
+              Claim
+            </button>
+          </div>
         </div>
         <div class="flex justify-end mt-10">
           <button
@@ -74,6 +79,13 @@
             @click="migrate()"
           >
             Migrate {{ selected.length }} Armies
+          </button>
+          <button
+            v-if="toClaim.length > 0"
+            class="px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition"
+            @click="claimNow()"
+          >
+            Claim {{ toClaim.length }} Armies
           </button>
         </div>
       </div>
@@ -108,6 +120,7 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 
 import migrateMe from '../utils/migrate'
+import claimMe from '../utils/claim'
 
 const getBalance = (value: BigNumber, fixedTo = 6) => {
   const puissance = 18 - fixedTo < 0 ? 18 : 18 - fixedTo
@@ -130,6 +143,7 @@ export default Vue.extend<any, any, any, any>({
   data() {
     return {
       selected: [],
+      toClaim: [],
     }
   },
   computed: {
@@ -137,6 +151,15 @@ export default Vue.extend<any, any, any, any>({
     classArmy() {
       return (name: string) => {
         if (this.selected.includes(name)) {
+          return `px-4 py-2 text-sm font-bold bg-army border-2 border-army text-white rounded-md transition`
+        } else {
+          return `px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition`
+        }
+      }
+    },
+    classClaim() {
+      return (id: string) => {
+        if (this.toClaim.includes(id)) {
           return `px-4 py-2 text-sm font-bold bg-army border-2 border-army text-white rounded-md transition`
         } else {
           return `px-4 py-2 text-sm font-bold bg-white border-2 border-army text-black rounded-md hover:bg-army hover:text-white transition`
@@ -167,6 +190,66 @@ export default Vue.extend<any, any, any, any>({
         this.selected.push(name)
       } else {
         this.selected = this.selected.filter((value: string) => value !== name)
+      }
+    },
+    claimIt(id: string) {
+      if (!this.toClaim.includes(id)) {
+        this.toClaim.push(id)
+      } else {
+        this.toClaim = this.toClaim.filter((value: string) => value !== id)
+      }
+    },
+    async claimNow() {
+      // @ts-ignore
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+      const claiming = this.toClaim.map((val: string) => {
+        return parseInt(val)
+      })
+
+      try {
+        await claimMe(provider, claiming)
+      } catch (error: any) {
+        switch (error.data.message) {
+          case "execution reverted: HELPER: You don't have enough reward to cash out":
+            // @ts-ignore
+            this.$toast.error("You don't have enough funds to cashout", {
+              position: 'top-right',
+              timeout: 4000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+              pauseOnHover: true,
+              draggable: true,
+              draggablePercent: 0.6,
+              showCloseButtonOnHover: false,
+              hideProgressBar: false,
+              closeButton: 'button',
+              icon: true,
+              rtl: false,
+            })
+            break
+
+          default:
+            // @ts-ignore
+            this.$toast.error(
+              'Sorry please try to claim by selecting armies in "Your Amry"',
+              {
+                position: 'top-right',
+                timeout: 4000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: false,
+                closeButton: 'button',
+                icon: true,
+                rtl: false,
+              }
+            )
+            break
+        }
       }
     },
     async migrate() {
