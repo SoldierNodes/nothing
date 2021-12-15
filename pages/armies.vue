@@ -18,12 +18,9 @@
       <div
         class="bg-gray-300 rounded-lg col-span-2 p-6 font-sans text-base normal-case"
       >
-        <div class="grid grid-cols-6 gap-1">
+        <div class="grid grid-cols-5 gap-2">
           <div class="flex items-center">
             <span class="font-bold">Name</span>
-          </div>
-          <div class="flex items-center">
-            <span class="font-bold">Creation Date</span>
           </div>
           <div class="flex items-center">
             <span class="font-bold">Next Claim</span>
@@ -42,13 +39,10 @@
         <div
           v-for="(army, index) in armies"
           :key="index"
-          class="grid grid-cols-6 gap-1 my-2"
+          class="grid grid-cols-5 gap-2 my-2"
         >
           <div class="flex items-center">
             <span class="font-bold">{{ army.name }}</span>
-          </div>
-          <div class="flex items-center">
-            <span class="font-bold">{{ showDate(army.mint) }}</span>
           </div>
           <div class="flex items-center">
             <span class="font-bold">{{
