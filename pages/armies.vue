@@ -18,7 +18,7 @@
       <div
         class="bg-gray-300 rounded-lg col-span-2 p-6 font-sans text-base normal-case"
       >
-        <div class="grid grid-cols-6">
+        <div class="grid grid-cols-6 gap-1">
           <div class="flex items-center">
             <span class="font-bold">Name</span>
           </div>
@@ -42,7 +42,7 @@
         <div
           v-for="(army, index) in armies"
           :key="index"
-          class="grid grid-cols-6 my-2"
+          class="grid grid-cols-6 gap-1 my-2"
         >
           <div class="flex items-center">
             <span class="font-bold">{{ army.name }}</span>
@@ -185,7 +185,7 @@ export default Vue.extend<any, any, any, any>({
     },
     showDate(unix: number) {
       const date = new Date(unix * 1000)
-      return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`
+      return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
     },
     select(name: string) {
       if (!this.selected.includes(name)) {
