@@ -26,7 +26,7 @@
             <span class="font-bold">Creation Date</span>
           </div>
           <div class="flex items-center">
-            <span class="font-bold">Last Claim</span>
+            <span class="font-bold">Next Claim</span>
           </div>
           <div class="flex items-center">
             <span class="font-bold">Id</span>
@@ -51,7 +51,9 @@
             <span class="font-bold">{{ showDate(army.mint) }}</span>
           </div>
           <div class="flex items-center">
-            <span class="font-bold">{{ showDate(army.claim) }}</span>
+            <span class="font-bold">{{
+              showDate(army.claim + 3600 * 24)
+            }}</span>
           </div>
           <div class="flex items-center">
             <span v-if="army.id > 0" class="font-bold">{{ army.id }}</span>
