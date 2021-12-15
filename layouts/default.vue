@@ -103,7 +103,7 @@
 </template>
 
 <script lang="ts">
-import { ethers } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
 import Vue from 'vue'
 import { mapMutations, mapState } from 'vuex'
 
@@ -260,7 +260,11 @@ export default Vue.extend({
                     name,
                     mint: parseInt(mint.toString()),
                     claim: parseInt(claim.toString()),
-                    reward: parseInt(reward.toString()),
+                    reward: parseInt(
+                      reward
+                        .div(BigNumber.from(10).pow(BigNumber.from(18)))
+                        .toString()
+                    ),
                   })
                 }
               })()
