@@ -190,11 +190,24 @@ export default Vue.extend<any, any, any, any>({
       const claimTime = unix + 3600 * 24
       let interval = claimTime - now
 
-      const hours = parseInt(`${interval / 3600}`)
+      if (interval < 0) {
+        return `00:00:00`
+      }
+
+      let hours: string | number = parseInt(`${interval / 3600}`)
       interval = interval - hours * 3600
-      const minutes = parseInt(`${interval / 60}`)
+      if (hours < 10) {
+        hours = `0${hours}`
+      }
+      let minutes: string | number = parseInt(`${interval / 60}`)
       interval = interval - minutes * 60
-      const seconds = parseInt(`${interval}`)
+      if (minutes < 10) {
+        minutes = `0${minutes}`
+      }
+      let seconds: string | number = parseInt(`${interval}`)
+      if (seconds < 10) {
+        seconds = `0${seconds}`
+      }
 
       return `${hours}:${minutes}:${seconds}`
     },
