@@ -86,6 +86,7 @@
           <input
             v-model="amount"
             type="number"
+            min="0"
             placeholder="Number of Node"
             class="flex-grow text-sm p-2 rounded-md focus:outline-none focus:ring ring-army text-black"
           />
