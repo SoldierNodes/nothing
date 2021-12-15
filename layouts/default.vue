@@ -144,6 +144,7 @@ export default Vue.extend({
       'setArmies',
       'setRewards',
       'setApproved',
+      'addArmies',
     ]),
     resize(_: any) {
       if (window.innerWidth < 1024) {
@@ -237,9 +238,34 @@ export default Vue.extend({
 
           try {
             this.setBalance(await getBalance(provider, this.account))
-            this.setArmies(await getArmies(provider, this.account))
             this.setRewards(await getRewards(provider, this.armies))
             this.setApproved(await isApproved(provider, this.account))
+
+            const armies = await getArmies(provider, this.account)
+
+            let isDone = false
+            while (!isDone) {
+              const army = await armies.next()
+              isDone = army.done ? army.done : false
+              ;(async () => {
+                if (army.value) {
+                  const [name, mint, claim, reward] = await Promise.all([
+                    army.value.name,
+                    army.value.mint,
+                    army.value.claim,
+                    army.value.reward,
+                  ])
+                  console.log(`HEre`)
+                  this.addArmies({
+                    id: army.value.id,
+                    name,
+                    mint: parseInt(mint.toString()),
+                    claim: parseInt(claim.toString()),
+                    reward: parseInt(reward.toString()),
+                  })
+                }
+              })()
+            }
           } catch (error) {}
 
           // @ts-ignore

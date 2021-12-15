@@ -25,6 +25,9 @@ export const mutations = {
   setArmies(state, armies) {
     state.armies = armies
   },
+  addArmies(state, army) {
+    state.armies = [army, ...state.armies]
+  },
   setRewards(state, rewards) {
     state.rewards = rewards
   },

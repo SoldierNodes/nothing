@@ -18,7 +18,7 @@
       <div
         class="bg-gray-300 rounded-lg col-span-2 p-6 font-sans text-base normal-case"
       >
-        <div class="grid grid-cols-5">
+        <div class="grid grid-cols-6">
           <div class="flex items-center">
             <span class="font-bold">Name</span>
           </div>
@@ -26,29 +26,29 @@
             <span class="font-bold">Creation Date</span>
           </div>
           <div class="flex items-center">
-            <span class="font-bold">Earned</span>
-          </div>
-          <div class="flex items-center">
             <span class="font-bold">Last Claim</span>
           </div>
           <div class="flex items-center">
             <span class="font-bold">Id</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-bold">Pending Reward</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-bold">Selected</span>
           </div>
         </div>
         <div class="h-6"></div>
         <div
           v-for="(army, index) in armies"
           :key="index"
-          class="grid grid-cols-5 my-2"
+          class="grid grid-cols-6 my-2"
         >
           <div class="flex items-center">
             <span class="font-bold">{{ army.name }}</span>
           </div>
           <div class="flex items-center">
             <span class="font-bold">{{ showDate(army.mint) }}</span>
-          </div>
-          <div class="flex items-center">
-            <span class="font-bold">{{ army.earned }}</span>
           </div>
           <div class="flex items-center">
             <span class="font-bold">{{ showDate(army.claim) }}</span>
@@ -62,6 +62,9 @@
             >
               Migrate
             </button>
+          </div>
+          <div class="flex items-center">
+            <span class="font-bold">{{ army.reward }}</span>
           </div>
         </div>
         <div class="flex justify-end mt-10">

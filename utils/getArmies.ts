@@ -13,6 +13,7 @@ const abi = [
   'function getMintOf(uint64 _id) public view returns (uint64)',
   'function getClaimOf(uint64 _id) public view returns (uint64)',
   'function getEarnedOf(uint64 _id) public view returns (uint64)',
+  'function getRewardOf(uint64 _id) public view returns (uint)',
 ]
 
 const abiHelper = [
@@ -25,113 +26,63 @@ const oldabi = [
   'function _getNodesCreationTime(address account) external view returns (string memory)',
 ]
 
-export default async (
+async function* getArmies(
   provider: ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider,
   account: String
-) => {
+) {
   const contract = new ethers.Contract(manager, abi, provider)
 
-  const balanceof = await contract.balanceOf(account)
+  const balanceof: BigNumber = await contract.balanceOf(account)
+  const amountNodes = balanceof.toNumber()
 
-  if (balanceof.gt(BigNumber.from(200))) {
-    const contractXD = new ethers.Contract(helper, abiHelper, provider)
-    const armiesId: Array<BigNumber> = await contract.getNodesIdsOf(account)
+  const contractXD = new ethers.Contract(helper, abiHelper, provider)
+  const armiesId: Array<BigNumber> = await contract.getNodesIdsOf(account)
 
-    const realArmies: any = []
-
-    for (let i = 0; i < armiesId.length; i++) {
-      const id = armiesId[i]
-
-      const promises = [
-        contract.getNameOf(id),
-        contract.getMintOf(id),
-        contract.getClaimOf(id),
-        contract.getEarnedOf(id),
-      ]
-
-      const [name, mint, claim, earned] = await Promise.all(promises)
-
-      realArmies.push({
-        id: id.toString(),
-        name,
-        mint: parseInt(mint),
-        claim: parseInt(claim),
-        earned,
-      })
-    }
-    const possibleMint = (
-      (await contractXD.notMigrated(account)) as BigNumber
-    ).toNumber()
-
-    const oldContract = new ethers.Contract(oldmanager, oldabi, provider)
-
-    const notMigrated = []
-
-    try {
-      const names = await oldContract._getNodesNames(account)
-      const namesArray = names.split('#')
-      const claims = await oldContract._getNodesLastClaimTime(account)
-      const claimsArray = claims.split('#')
-      const creation = await oldContract._getNodesCreationTime(account)
-      const creationArray = creation.split('#')
-
-      for (let i = 0; i < possibleMint; i++) {
-        notMigrated.push({
-          id: -1,
-          name: namesArray[i],
-          mint: creationArray[i],
-          claim: claimsArray[i],
-          earned: 2,
-        })
-      }
-    } catch (error) {}
-
-    return [...notMigrated, ...realArmies]
-  } else {
-    const contractXD = new ethers.Contract(helper, abiHelper, provider)
-    const armies: String = await contract.getNodesStringOf(account)
-    const possibleMint = (
-      (await contractXD.notMigrated(account)) as BigNumber
-    ).toNumber()
-
-    let realArmies: any = []
-
-    if (armies !== '') {
-      realArmies = armies.split(`#`).map((value: String) => {
-        const values = value.split(`.`)
-        return {
-          id: values[0],
-          name: values[1],
-          mint: values[2],
-          claim: values[3],
-          earned: values[4],
-        }
-      })
-    }
-
-    const oldContract = new ethers.Contract(oldmanager, oldabi, provider)
-
-    const notMigrated = []
-
-    try {
-      const names = await oldContract._getNodesNames(account)
-      const namesArray = names.split('#')
-      const claims = await oldContract._getNodesLastClaimTime(account)
-      const claimsArray = claims.split('#')
-      const creation = await oldContract._getNodesCreationTime(account)
-      const creationArray = creation.split('#')
-
-      for (let i = 0; i < possibleMint; i++) {
-        notMigrated.push({
-          id: -1,
-          name: namesArray[i],
-          mint: creationArray[i],
-          claim: claimsArray[i],
-          earned: 2,
-        })
-      }
-    } catch (error) {}
-
-    return [...notMigrated, ...realArmies]
+  if (amountNodes !== armiesId.length) {
+    console.log(
+      `You have ${amountNodes} NFT armies but something went wrong only on frontend YOUR ARMIES ARE SAFE :)`
+    )
   }
+
+  for (let i = 0; i < armiesId.length; i++) {
+    const id = armiesId[i]
+
+    yield {
+      id: parseInt(id.toString()),
+      name: contract.getNameOf(id),
+      mint: contract.getMintOf(id),
+      claim: contract.getClaimOf(id),
+      reward: contract.getRewardOf(id),
+    }
+  }
+
+  const possibleMint = (
+    (await contractXD.notMigrated(account)) as BigNumber
+  ).toNumber()
+
+  const oldContract = new ethers.Contract(oldmanager, oldabi, provider)
+
+  try {
+    const names = await oldContract._getNodesNames(account)
+    const namesArray = names.split('#')
+    const claims = await oldContract._getNodesLastClaimTime(account)
+    const claimsArray = claims.split('#')
+    const creation = await oldContract._getNodesCreationTime(account)
+    const creationArray = creation.split('#')
+
+    const timer = 1639339210
+    const earned = (parseInt(`${Date.now() / 1000}`) - timer) / 3600
+
+    for (let i = 0; i < possibleMint; i++) {
+      yield {
+        id: -1,
+        name: namesArray[i],
+        mint: creationArray[i],
+        claim: claimsArray[i],
+        reward: earned,
+      }
+    }
+  } catch (error) {}
 }
+
+export default getArmies
