@@ -32,17 +32,8 @@ async function* getArmies(
 ) {
   const contract = new ethers.Contract(manager, abi, provider)
 
-  const balanceof: BigNumber = await contract.balanceOf(account)
-  const amountNodes = balanceof.toNumber()
-
   const contractXD = new ethers.Contract(helper, abiHelper, provider)
   const armiesId: Array<BigNumber> = await contract.getNodesIdsOf(account)
-
-  if (amountNodes !== armiesId.length) {
-    console.log(
-      `You have ${amountNodes} NFT armies but something went wrong only on frontend YOUR ARMIES ARE SAFE :)`
-    )
-  }
 
   for (let i = 0; i < armiesId.length; i++) {
     const id = armiesId[i]

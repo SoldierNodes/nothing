@@ -255,7 +255,6 @@ export default Vue.extend({
                     army.value.claim,
                     army.value.reward,
                   ])
-                  console.log(`HEre`)
                   this.addArmies({
                     id: army.value.id,
                     name,
