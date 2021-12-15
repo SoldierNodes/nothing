@@ -37,13 +37,13 @@
             <span class="font-bold">$SLD</span>
           </div>
           <a
-            href="https://snowtrace.io/address/0x9Ad6C38BE94206cA50bb0d90783181662f0Cfa10"
+            href="https://snowtrace.io/address/0xad7476c49d3f82a144f4836aacb9b069c188b759"
             target="_blank"
             class="flex justify-between my-2"
           >
             <span>Contract</span>
             <span class="font-bold hover:underline cursor-pointer"
-              >0x595d...84F942</span
+              >0xad74...88b759</span
             >
           </a>
         </div>
