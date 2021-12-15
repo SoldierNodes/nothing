@@ -45,9 +45,7 @@
             <span class="font-bold">{{ army.name }}</span>
           </div>
           <div class="flex items-center">
-            <span class="font-bold">{{
-              showDate(army.claim + 3600 * 24)
-            }}</span>
+            <span class="font-bold">{{ showDate(army.claim) }}</span>
           </div>
           <div class="flex items-center">
             <span v-if="army.id > 0" class="font-bold">{{ army.id }}</span>
@@ -140,6 +138,8 @@ export default Vue.extend<any, any, any, any>({
     return {
       selected: [],
       toClaim: [],
+      now: 0,
+      interval: parseInt(`${Date.now() / 1000}`),
     }
   },
   computed: {
@@ -173,13 +173,30 @@ export default Vue.extend<any, any, any, any>({
       return toMigrate
     },
   },
+  created() {
+    this.interval = setInterval(() => {
+      this.now = parseInt(`${Date.now() / 1000}`)
+    }, 1000)
+  },
+  destroyed() {
+    clearInterval(this.interval)
+  },
   methods: {
     showSoldiers() {
       return parseInt(getBalance(this.balance))
     },
     showDate(unix: number) {
-      const date = new Date(unix * 1000)
-      return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+      const now = this.now
+      const claimTime = unix + 3600 * 24
+      let interval = claimTime - now
+
+      const hours = parseInt(`${interval / 3600}`)
+      interval = interval - hours * 3600
+      const minutes = parseInt(`${interval / 60}`)
+      interval = interval - minutes * 60
+      const seconds = parseInt(`${interval}`)
+
+      return `${hours}:${minutes}:${seconds}`
     },
     select(name: string) {
       if (!this.selected.includes(name)) {
