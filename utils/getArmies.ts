@@ -55,6 +55,7 @@ async function* getArmies(
 
   try {
     console.log(`Test Nom`)
+    console.log(account)
     const names = await oldContract._getNodesNames(account)
     console.log(names)
     const namesArray = names.split('#')
