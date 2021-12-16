@@ -35,8 +35,6 @@ async function* getArmies(
   const contractXD = new ethers.Contract(helper, abiHelper, provider)
   const armiesId: Array<BigNumber> = await contract.getNodesIdsOf(account)
 
-  console.log(armiesId)
-
   for (let i = 0; i < armiesId.length; i++) {
     const id = armiesId[i]
 
@@ -68,7 +66,16 @@ async function* getArmies(
       (parseInt(`${Date.now() / 1000}`) - timer) / 3600
     )
 
+    console.log(possibleMint)
+
     for (let i = 0; i < possibleMint; i++) {
+      console.log({
+        id: -1,
+        name: namesArray[i],
+        mint: creationArray[i],
+        claim: claimsArray[i],
+        reward: earned,
+      })
       yield {
         id: -1,
         name: namesArray[i],
