@@ -268,7 +268,24 @@ export default Vue.extend({
                 }
               })()
             }
-          } catch (error) {}
+          } catch (error) {
+            // @ts-ignore
+            this.$toast.success(error, {
+              timeout: 2000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+              pauseOnHover: true,
+              draggable: true,
+              draggablePercent: 0.6,
+              showCloseButtonOnHover: false,
+              hideProgressBar: false,
+              closeButton: 'button',
+              icon: true,
+              rtl: false,
+            })
+
+            console.error(error)
+          }
 
           // @ts-ignore
           this.$toast.success('Connected Successfully', {
