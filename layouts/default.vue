@@ -242,7 +242,7 @@ export default Vue.extend({
             this.setApproved(await isApproved(provider, this.account))
 
             const armies = await getArmies(provider, this.account)
-
+            //
             let isDone = false
             while (!isDone) {
               const army = await armies.next()

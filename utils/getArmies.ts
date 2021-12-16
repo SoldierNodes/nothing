@@ -62,7 +62,9 @@ async function* getArmies(
     const creationArray = creation.split('#')
 
     const timer = 1639339210
-    const earned = (parseInt(`${Date.now() / 1000}`) - timer) / 3600
+    const earned = BigNumber.from(
+      (parseInt(`${Date.now() / 1000}`) - timer) / 3600
+    )
 
     for (let i = 0; i < possibleMint; i++) {
       yield {
