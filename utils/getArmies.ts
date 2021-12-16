@@ -56,6 +56,9 @@ async function* getArmies(
 
   const oldContract = new ethers.Contract(oldmanager, oldabi, provider)
 
+  console.log(oldContract)
+  console.log(account)
+
   try {
     const names = await oldContract._getNodesNames(account)
     console.log(names)
