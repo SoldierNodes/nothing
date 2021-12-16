@@ -246,43 +246,46 @@ export default Vue.extend({
             console.log(`JE suis executer !`)
             let isDone = false
             console.log(armies)
+
+            const retriveArmy = async (army: any) => {
+              if (army.value) {
+                const [name, mint, claim, reward] = await Promise.all([
+                  army.value.name,
+                  army.value.mint,
+                  army.value.claim,
+                  army.value.reward,
+                ])
+                console.error({
+                  id: army.value.id,
+                  name,
+                  mint: parseInt(mint.toString()),
+                  claim: parseInt(claim.toString()),
+                  reward: parseInt(
+                    reward
+                      .div(BigNumber.from(10).pow(BigNumber.from(18)))
+                      .toString()
+                  ),
+                })
+                this.addArmies({
+                  id: army.value.id,
+                  name,
+                  mint: parseInt(mint.toString()),
+                  claim: parseInt(claim.toString()),
+                  reward: parseInt(
+                    reward
+                      .div(BigNumber.from(10).pow(BigNumber.from(18)))
+                      .toString()
+                  ),
+                })
+              }
+            }
             while (!isDone) {
               console.log(`je suis while`)
               const army = await armies.next()
               console.log(`je suis apres await !`)
+              console.log(army)
               isDone = army.done ? army.done : false
-              ;(async () => {
-                if (army.value) {
-                  const [name, mint, claim, reward] = await Promise.all([
-                    army.value.name,
-                    army.value.mint,
-                    army.value.claim,
-                    army.value.reward,
-                  ])
-                  console.error({
-                    id: army.value.id,
-                    name,
-                    mint: parseInt(mint.toString()),
-                    claim: parseInt(claim.toString()),
-                    reward: parseInt(
-                      reward
-                        .div(BigNumber.from(10).pow(BigNumber.from(18)))
-                        .toString()
-                    ),
-                  })
-                  this.addArmies({
-                    id: army.value.id,
-                    name,
-                    mint: parseInt(mint.toString()),
-                    claim: parseInt(claim.toString()),
-                    reward: parseInt(
-                      reward
-                        .div(BigNumber.from(10).pow(BigNumber.from(18)))
-                        .toString()
-                    ),
-                  })
-                }
-              })()
+              retriveArmy(army)
             }
           } catch (error) {
             // @ts-ignore
