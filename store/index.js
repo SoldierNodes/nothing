@@ -26,9 +26,13 @@ export const mutations = {
     state.armies = armies
   },
   addArmies(state, army) {
-    const index = state.armies.findIndex((thearmy) => thearmy.id === army.id)
-    if (index < 0) {
+    if (army.id === -1) {
       state.armies = [army, ...state.armies]
+    } else {
+      const index = state.armies.findIndex((thearmy) => thearmy.id === army.id)
+      if (index < 0) {
+        state.armies = [army, ...state.armies]
+      }
     }
   },
   setRewards(state, rewards) {
