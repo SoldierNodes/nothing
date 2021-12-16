@@ -241,11 +241,8 @@ export default Vue.extend({
             this.setRewards(await getRewards(provider, this.armies))
             this.setApproved(await isApproved(provider, this.account))
 
-            console.log(`JE suis executer avant !`)
             const armies = getArmies(provider, this.account)
-            console.log(`JE suis executer !`)
             let isDone = false
-            console.log(armies)
 
             const retriveArmy = async (army: any) => {
               if (army.value) {
@@ -255,17 +252,6 @@ export default Vue.extend({
                   army.value.claim,
                   army.value.reward,
                 ])
-                console.error({
-                  id: army.value.id,
-                  name,
-                  mint: parseInt(mint.toString()),
-                  claim: parseInt(claim.toString()),
-                  reward: parseInt(
-                    reward
-                      .div(BigNumber.from(10).pow(BigNumber.from(18)))
-                      .toString()
-                  ),
-                })
                 this.addArmies({
                   id: army.value.id,
                   name,
@@ -280,31 +266,11 @@ export default Vue.extend({
               }
             }
             while (!isDone) {
-              console.log(`je suis while`)
               const army = await armies.next()
-              console.log(`je suis apres await !`)
-              console.log(army)
               isDone = army.done ? army.done : false
               retriveArmy(army)
             }
-          } catch (error) {
-            // @ts-ignore
-            this.$toast.success(error, {
-              timeout: 2000,
-              closeOnClick: true,
-              pauseOnFocusLoss: true,
-              pauseOnHover: true,
-              draggable: true,
-              draggablePercent: 0.6,
-              showCloseButtonOnHover: false,
-              hideProgressBar: false,
-              closeButton: 'button',
-              icon: true,
-              rtl: false,
-            })
-
-            console.error(error)
-          }
+          } catch (error) {}
 
           // @ts-ignore
           this.$toast.success('Connected Successfully', {

@@ -66,16 +66,7 @@ async function* getArmies(
       parseInt(`${(parseInt(`${Date.now() / 1000}`) - timer) / 3600}`)
     )
 
-    console.log(possibleMint)
-
     for (let i = 0; i < possibleMint; i++) {
-      console.log({
-        id: -1,
-        name: namesArray[i],
-        mint: creationArray[i],
-        claim: claimsArray[i],
-        reward: earned,
-      })
       yield {
         id: -1,
         name: namesArray[i],
