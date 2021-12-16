@@ -247,7 +247,9 @@ export default Vue.extend({
             let isDone = false
             console.log(armies)
             while (!isDone) {
+              console.log(`je suis while`)
               const army = await armies.next()
+              console.log(`je suis apres await !`)
               isDone = army.done ? army.done : false
               ;(async () => {
                 if (army.value) {
