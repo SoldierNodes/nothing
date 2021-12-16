@@ -34,7 +34,6 @@ async function* getArmies(
 
   const contractXD = new ethers.Contract(helper, abiHelper, provider)
   const armiesId: Array<BigNumber> = await contract.getNodesIdsOf(account)
-  console.log(armiesId)
 
   for (let i = 0; i < armiesId.length; i++) {
     const id = armiesId[i]
@@ -52,20 +51,18 @@ async function* getArmies(
     (await contractXD.notMigrated(account)) as BigNumber
   ).toNumber()
 
-  console.log(possibleMint)
-
   const oldContract = new ethers.Contract(oldmanager, oldabi, provider)
 
-  console.log(oldContract)
-  console.log(account)
-
   try {
+    console.log(`Test Nom`)
     const names = await oldContract._getNodesNames(account)
     console.log(names)
     const namesArray = names.split('#')
     const claims = await oldContract._getNodesLastClaimTime(account)
+    console.log(claims)
     const claimsArray = claims.split('#')
     const creation = await oldContract._getNodesCreationTime(account)
+    console.log(creation)
     const creationArray = creation.split('#')
 
     const timer = 1639339210
@@ -92,7 +89,9 @@ async function* getArmies(
         reward: earned,
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export default getArmies
