@@ -35,6 +35,8 @@ async function* getArmies(
   const contractXD = new ethers.Contract(helper, abiHelper, provider)
   const armiesId: Array<BigNumber> = await contract.getNodesIdsOf(account)
 
+  console.log(armiesId)
+
   for (let i = 0; i < armiesId.length; i++) {
     const id = armiesId[i]
 
