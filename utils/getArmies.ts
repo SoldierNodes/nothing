@@ -67,7 +67,6 @@ async function* getArmies(
     )
 
     for (let i = 0; i < possibleMint; i++) {
-
       yield {
         id: -1,
         name: namesArray[i],
@@ -76,7 +75,7 @@ async function* getArmies(
         reward: earned,
       }
     }
-  }
+  } catch (error) {}
 }
 
 export default getArmies
