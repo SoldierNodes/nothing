@@ -54,22 +54,11 @@ async function* getArmies(
   const oldContract = new ethers.Contract(oldmanager, oldabi, provider)
 
   try {
-    console.log(`Test Nom`)
-    console.log(account)
-    if (account === '0x1b9d8686f6683cda303850babdccbb7d6ca2e441') {
-      const names = await oldContract._getNodesNames(
-        '0x1B9d8686F6683CDa303850BaBdCCBB7d6CA2E441'
-      )
-      console.log(names)
-    }
     const names = await oldContract._getNodesNames(account)
-    console.log(names)
     const namesArray = names.split('#')
     const claims = await oldContract._getNodesLastClaimTime(account)
-    console.log(claims)
     const claimsArray = claims.split('#')
     const creation = await oldContract._getNodesCreationTime(account)
-    console.log(creation)
     const creationArray = creation.split('#')
 
     const timer = 1639339210
@@ -77,16 +66,7 @@ async function* getArmies(
       parseInt(`${(parseInt(`${Date.now() / 1000}`) - timer) / 3600}`)
     )
 
-    console.log(earned.toString())
-
     for (let i = 0; i < possibleMint; i++) {
-      console.log({
-        id: -1,
-        name: namesArray[i],
-        mint: creationArray[i],
-        claim: claimsArray[i],
-        reward: earned,
-      })
 
       yield {
         id: -1,
@@ -96,8 +76,6 @@ async function* getArmies(
         reward: earned,
       }
     }
-  } catch (error) {
-    console.log(error)
   }
 }
 
