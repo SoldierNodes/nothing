@@ -248,6 +248,7 @@ export default Vue.extend({
               const army = await armies.next()
               isDone = army.done ? army.done : false
               ;(async () => {
+                console.log(army.value)
                 if (army.value) {
                   const [name, mint, claim, reward] = await Promise.all([
                     army.value.name,
