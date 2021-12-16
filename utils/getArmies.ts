@@ -63,7 +63,7 @@ async function* getArmies(
 
     const timer = 1639339210
     const earned = BigNumber.from(
-      (parseInt(`${Date.now() / 1000}`) - timer) / 3600
+      parseInt(`${(parseInt(`${Date.now() / 1000}`) - timer) / 3600}`)
     )
 
     console.log(possibleMint)
