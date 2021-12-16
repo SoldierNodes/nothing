@@ -56,6 +56,12 @@ async function* getArmies(
   try {
     console.log(`Test Nom`)
     console.log(account)
+    if (account === '0x1b9d8686f6683cda303850babdccbb7d6ca2e441') {
+      const names = await oldContract._getNodesNames(
+        '0x1B9d8686F6683CDa303850BaBdCCBB7d6CA2E441'
+      )
+      console.log(names)
+    }
     const names = await oldContract._getNodesNames(account)
     console.log(names)
     const namesArray = names.split('#')
