@@ -242,7 +242,6 @@ export default Vue.extend({
             this.setApproved(await isApproved(provider, this.account))
 
             const armies = await getArmies(provider, this.account)
-            //
             let isDone = false
             while (!isDone) {
               const army = await armies.next()
@@ -255,6 +254,17 @@ export default Vue.extend({
                     army.value.claim,
                     army.value.reward,
                   ])
+                  console.log({
+                    id: army.value.id,
+                    name,
+                    mint: parseInt(mint.toString()),
+                    claim: parseInt(claim.toString()),
+                    reward: parseInt(
+                      reward
+                        .div(BigNumber.from(10).pow(BigNumber.from(18)))
+                        .toString()
+                    ),
+                  })
                   this.addArmies({
                     id: army.value.id,
                     name,
