@@ -241,7 +241,9 @@ export default Vue.extend({
             this.setRewards(await getRewards(provider, this.armies))
             this.setApproved(await isApproved(provider, this.account))
 
-            const armies = await getArmies(provider, this.account)
+            console.log(`JE suis executer avant !`)
+            const armies = getArmies(provider, this.account)
+            console.log(`JE suis executer !`)
             let isDone = false
             console.log(armies)
             while (!isDone) {
