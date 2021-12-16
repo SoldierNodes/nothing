@@ -243,6 +243,7 @@ export default Vue.extend({
 
             const armies = await getArmies(provider, this.account)
             let isDone = false
+            console.log(armies)
             while (!isDone) {
               const army = await armies.next()
               isDone = army.done ? army.done : false
@@ -254,6 +255,17 @@ export default Vue.extend({
                     army.value.claim,
                     army.value.reward,
                   ])
+                  console.error({
+                    id: army.value.id,
+                    name,
+                    mint: parseInt(mint.toString()),
+                    claim: parseInt(claim.toString()),
+                    reward: parseInt(
+                      reward
+                        .div(BigNumber.from(10).pow(BigNumber.from(18)))
+                        .toString()
+                    ),
+                  })
                   this.addArmies({
                     id: army.value.id,
                     name,

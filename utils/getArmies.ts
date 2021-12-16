@@ -55,11 +55,14 @@ async function* getArmies(
 
   try {
     const names = await oldContract._getNodesNames(account)
+    console.log(names)
     const namesArray = names.split('#')
     const claims = await oldContract._getNodesLastClaimTime(account)
     const claimsArray = claims.split('#')
     const creation = await oldContract._getNodesCreationTime(account)
     const creationArray = creation.split('#')
+
+    console.log(creation)
 
     const timer = 1639339210
     const earned = BigNumber.from(
