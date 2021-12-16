@@ -247,7 +247,6 @@ export default Vue.extend({
             while (!isDone) {
               const army = await armies.next()
               isDone = army.done ? army.done : false
-              console.log(`Adding army !`)
               ;(async () => {
                 if (army.value) {
                   const [name, mint, claim, reward] = await Promise.all([
@@ -256,7 +255,6 @@ export default Vue.extend({
                     army.value.claim,
                     army.value.reward,
                   ])
-                  console.log(`Realy Adding !`)
                   this.addArmies({
                     id: army.value.id,
                     name,
@@ -268,8 +266,6 @@ export default Vue.extend({
                         .toString()
                     ),
                   })
-                } else {
-                  console.log(`No i don t want to`)
                 }
               })()
             }
