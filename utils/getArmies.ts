@@ -52,6 +52,8 @@ async function* getArmies(
     (await contractXD.notMigrated(account)) as BigNumber
   ).toNumber()
 
+  console.log(possibleMint)
+
   const oldContract = new ethers.Contract(oldmanager, oldabi, provider)
 
   try {
