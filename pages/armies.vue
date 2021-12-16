@@ -174,6 +174,7 @@ export default Vue.extend<any, any, any, any>({
     },
   },
   created() {
+    this.now = parseInt(`${Date.now() / 1000}`)
     this.interval = setInterval(() => {
       this.now = parseInt(`${Date.now() / 1000}`)
     }, 1000)

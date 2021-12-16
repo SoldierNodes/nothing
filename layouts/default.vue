@@ -244,31 +244,30 @@ export default Vue.extend({
             const armies = getArmies(provider, this.account)
             let isDone = false
 
-            const retriveArmy = async (army: any) => {
-              if (army.value) {
-                const [name, mint, claim, reward] = await Promise.all([
-                  army.value.name,
-                  army.value.mint,
-                  army.value.claim,
-                  army.value.reward,
-                ])
-                this.addArmies({
-                  id: army.value.id,
-                  name,
-                  mint: parseInt(mint.toString()),
-                  claim: parseInt(claim.toString()),
-                  reward: parseInt(
-                    reward
-                      .div(BigNumber.from(10).pow(BigNumber.from(18)))
-                      .toString()
-                  ),
-                })
-              }
-            }
             while (!isDone) {
               const army = await armies.next()
               isDone = army.done ? army.done : false
-              retriveArmy(army)
+              ;(async () => {
+                if (army.value) {
+                  const [name, mint, claim, reward] = await Promise.all([
+                    army.value.name,
+                    army.value.mint,
+                    army.value.claim,
+                    army.value.reward,
+                  ])
+                  this.addArmies({
+                    id: army.value.id,
+                    name,
+                    mint: parseInt(mint.toString()),
+                    claim: parseInt(claim.toString()),
+                    reward: parseInt(
+                      reward
+                        .div(BigNumber.from(10).pow(BigNumber.from(18)))
+                        .toString()
+                    ),
+                  })
+                }
+              })()
             }
           } catch (error) {}
 
